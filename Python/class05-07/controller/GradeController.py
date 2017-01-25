@@ -6,6 +6,7 @@ Created on Nov 19, 2016
 
 from domain.Grade import Grade
 from copy import deepcopy
+from dataStructure.DataStructure import MyStructure
 
 class GradeController:
 
@@ -56,42 +57,118 @@ class GradeController:
         '''
         Statistics : return students alphabetically, key = name 
         '''
+        
+        """
+        Old code
         l = self._gradeRepo.getAll()
         l.sort(key=lambda x : self._studentRepo[x.studentId].name.lower())
         return l
+        """
+        
+        
+        # New code - DataStructure created
+        l = self._gradeRepo.getAll()
+        newDataStr = MyStructure()
+        for x in l:
+            newDataStr.add(x)
+        
+        def function(first, second):
+            return self._studentRepo[first.studentId].name.lower() < self._studentRepo[second.studentId].name.lower()
+        
+        
+        l = newDataStr.H_sort(function)
+        return l
+            
+
+        
     
     def sortAscDisciplines(self): 
         '''
         Helper function for 4th statistic ( sorts grade repository by discipline name ) 
         '''
+        
+        """
+        Old code
         l = self._gradeRepo.getAll()
         l.sort(key=lambda x : self._disciplineRepo[x.disciplineId].name.lower())
         return l
     
+        """
+        
+        
+        # New code - DataStructure created
+        l = self._gradeRepo.getAll()
+        newL = MyStructure()
+        for x in l:
+            newL.add(x)
+        def function(first, second):
+            return self._disciplineRepo[first.disciplineId].name.lower() < self._disciplineRepo[second.disciplineId].name.lower()
+        
+        l = newL.H_sort(function)
+        return l 
+        
     
     def sortDescGrades(self):
         '''
         Statistics : returns students in descending order by their average grade 
         '''
+        
+        """
+        Old code
         l = self._gradeRepo.getAll()
         l.sort(key=lambda x : GradeController.gradeAverage(x.grade), reverse=True)
         return l
+        """
+        
+        # New code - DataStructure created
+        l = self._gradeRepo.getAll()
+        newStr = MyStructure()
+        for x in l:
+            newStr.add(x)
+            
+        def function(first, second):
+            return GradeController.gradeAverage(first.grade) > GradeController.gradeAverage(second.grade)
+        
+        l = newStr.H_sort(function)
+        return l
     
-    def tryIt(self):
+    
+    '''
+    def sortByIDWithDTO(self):
         l = self._gradeRepo.getAll()
         newL = []
         for x in l:
             newL.append(DTO1(x.disciplineId, self._disciplineRepo[x.disciplineId].name, x.studentId))
         newL.sort()
         return newL
-    
+    '''
     
     def failingDisciplines(self):
         '''
         Statistics : returns students who have an average grade < 5 ( meaning they're failing)
         '''
+        
+        
+        """
+        Old code
         l = self._gradeRepo.getAll()
         l = filter(lambda x : GradeController.gradeAverage(x.grade) < 5, l)
+        return l
+        """
+        
+        
+        # New code - DataStructure created
+        
+        
+        l = self._gradeRepo.getAll()
+        newStr = MyStructure()
+        for x in l:
+            newStr.add(x)
+            
+        def function(param):
+            return  GradeController.gradeAverage(param.grade) < 5
+        
+        l = newStr.filter(function)
         return l
          
     def aggregateAverage(self):
@@ -252,6 +329,9 @@ class DTO1:
 
     def __str__(self):
         return str(self._disciplineId) + " wow " + str(self._disciplineName) + " wowww" 
+    
+    
+
    
 
         

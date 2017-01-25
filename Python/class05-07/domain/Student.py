@@ -37,7 +37,8 @@ class Student(IDObject):
 
     def __str__(self):
         return "Id: " + str(self._objectId) + ", Name: " + self._name 
-
+    
+    
 
 class StudentValidator():
 
