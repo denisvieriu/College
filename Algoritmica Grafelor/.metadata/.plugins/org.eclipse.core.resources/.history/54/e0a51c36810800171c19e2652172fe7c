@@ -1,0 +1,103 @@
+'''
+Created on Mar 14, 2017
+
+@author: Denis
+'''
+
+
+class DoubleDictGraph:
+    """
+    """
+
+    def __init__(self, fileName):
+        """
+        Creates a graph with n vertices ( 0 to n - 1 )
+        """
+        self._fileName = fileName
+        self._dictOut = {}
+        self._dictIn = {}
+        self._cost = {}
+        self._vertices, self._edges = self._readFromFile(fileName)
+
+    def isEdge(self, x, y):
+        """
+        Returns True if there is an edge between x and y, False otherwise
+        """
+        return y in self._dictOut[x]
+
+    def addEdge(self, x, y, cost):
+        """
+        Adds an edge from x to y
+        """
+        self._dictIn[y].append(x)
+        self._dictOut[x].append(y)
+        self._cost[(x, y)] = cost
+
+    def parseNout(self, x):
+        """
+        Returns an iterable containing the outbound neighbours of x
+        """
+        return self._dictOut[x]
+
+    def parseNin(self, x):
+        """
+        Returns an iterable containing the inbound neighbours of x
+        """
+        return self._dictIn[x]
+
+    def numberOfVertices(self):
+        """
+        Returns the number of vertices
+        """
+        return self._vertices
+
+    def inDegree(self, x):
+        """
+        Returns the in-degree of a vertex
+        """
+        return len(self.parseNin(x))
+
+    def outDegree(self, x):
+        """
+        Returns the out-degree of a vertex
+        """
+        return len(self.parseNout(x))
+
+    def modifyCost(self, x, y, newCost):
+        """
+        Modifies the cost between x and y
+        """
+        self._cost[(x, y)] = newCost
+
+    def retrieveCost(self, x, y):
+        """
+        Retrieves the cost between x and y
+        """
+        return self._cost[(x, y)]
+
+    def _readFromFile(self, fileName):
+        """
+        Reads a graph from a file
+        It's cost it is attached to an external dictionary ( as a touple )
+        """
+        with open(self._fileName, "r") as f:
+            line = f.readline().strip().split()
+            vertices = int(line[0])
+            edges = int(line[1])
+            for i in range(vertices):
+                self._dictIn[i] = []
+                self._dictOut[i] = []
+            for line in f.readlines():
+                if line != '\n':
+                    line = line.strip().split()
+                    x = int(line[0])
+                    y = int(line[1])
+                    cost = int(line[2])
+                    self._dictIn[y].append(x)
+                    self._dictOut[x].append(y)
+                    self._cost[(x, y)] = cost
+        return vertices, edges
+
+
+my_graph = DoubleDictGraph("graph1k.txt")
+print()
