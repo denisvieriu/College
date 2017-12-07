@@ -1,0 +1,40 @@
+remove([],_,[]).
+remove([H|T],E,[H|RE]):-
+    H=\=E,
+    remove(T,E,RE).
+remove([H|T],E,R):-
+    H=:=E,
+    remove(T,E,R).
+
+countNr([],_,SC,SC).
+
+countNr([H|T],E,SC,R):-
+    E=:=H,
+    SCX is SC+1,
+    countNr(T,E,SCX,R).
+    
+countNr([H|T],E,SC,R):-
+    E=\=H,
+    countNr(T,E,SC,R).
+
+append([],X,X).                            
+append([X|Y],Z,[X|W]) :- append(Y,Z,W).    
+
+countNrM(L,E,R):-
+    countNr(L,E,0,R).
+
+numberatom([],RL,RL):-
+    !.
+
+numberatom([H|T],RL,RA):-
+    countNr([H|T],H,0,R),
+    X is H,
+    remove([H|T],H,Res),
+	append(RL,[[X,R]],RX),
+    numberatom(Res,RX,RA).
+
+
+    
+    
+
+

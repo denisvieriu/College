@@ -1,0 +1,31 @@
+(defun list-length-rec (L)   
+  (if (null L)
+    0
+   (1+ (list-length-rec (rest L)))
+  )
+)
+
+(defun make_pair (e1 e2)
+  (cons e1 (cons e2 nil))
+)
+
+(defvar *list1* '(A B C))         ;; define list with '
+(defvar *list2* (quote (X Y Z)))  ;; define list with quote (same as ')
+
+(defun association_list (L1 L2)
+  (cond 
+    ((null L1)                                        nil)
+    ((null L2)                                        nil)
+    ((/= (list-length-rec L1) (list-length-rec L2))   nil)
+    (t                                               (cons (make_pair (first L1) (first L2)) (association_list (rest L1) (rest L2))))
+  )
+)
+
+(defvar newList)
+(setq newList (association_list *list1* *list2*))
+(print newList)
+
+
+
+  
+ 
