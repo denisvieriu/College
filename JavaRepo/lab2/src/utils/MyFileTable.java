@@ -1,5 +1,6 @@
 package utils;
 
+import utils.adt.MyIDictionary;
 import utils.adt.MyIFileTable;
 
 import java.util.HashMap;

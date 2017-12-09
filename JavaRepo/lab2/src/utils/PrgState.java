@@ -1,5 +1,9 @@
 package utils;
 
+import exceptions.DivideByZeroException;
+import exceptions.InterpreterException;
+import exceptions.InvalidOperandException;
+import exceptions.NotExistingException;
 import model.Statement.IStmt;
 import utils.adt.*;
 
@@ -10,6 +14,8 @@ public class PrgState {
     private IStmt originalProgram;
     private MyIFileTable<Integer, FileData> fileTable;
     private MyIHeap<Integer, Integer> heap;
+    //
+    private int id;
 
     public PrgState(MyIStack<IStmt> stk, MyIDictionary<String,Integer> symtbl,
                     MyIList<Integer> ot, MyIFileTable<Integer, FileData> fileT, MyIHeap<Integer, Integer> hp, IStmt prg){
@@ -20,10 +26,32 @@ public class PrgState {
         heap = hp;
         originalProgram = prg;
         stk.push(prg);
+        id = IDGenerator.generate_id();
     }
 
     public MyIStack<IStmt> getExeStack() {
         return exeStack;
+    }
+
+    public int getId() { return id; }
+
+    public boolean isNotCompleted() {
+        return !exeStack.isEmpty();
+    }
+
+    public PrgState executeOneStep() throws DivideByZeroException, InvalidOperandException, NotExistingException {
+        if(exeStack.isEmpty()) {
+            throw new NotExistingException("Stack is empty");
+        }
+        try {
+            IStmt crtStmt = exeStack.pop();
+            return crtStmt.execute(this);
+        }
+        catch (InterpreterException ex) {
+            System.out.println(ex.toString());
+        }
+
+        throw new InterpreterException("Shouldn't reach this pont");
     }
 
     public void setExeStack(MyIStack<IStmt> exeStack) {

@@ -26,7 +26,8 @@ public class WhileStmt implements IStmt{
 
         int r = exp.eval(symTable, heap);
         if (r == 0) {
-            return state;
+            //return state;
+            return null;
         }
         else
         {
@@ -34,7 +35,8 @@ public class WhileStmt implements IStmt{
             stmt.execute(state);
         }
 
-        return state;
+        //return state;
+        return null;
     }
 
     @Override

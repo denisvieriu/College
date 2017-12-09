@@ -68,4 +68,13 @@ public class MyDictionary<K,V> implements MyIDictionary<K,V> {
     public Iterable<K> getAll(){
         return hMap.keySet();
     }
+
+    @Override
+    public MyIDictionary<K, V> copy() {
+        MyIDictionary<K, V> aux = new MyDictionary<>();
+        for (Map.Entry<K, V> m : hMap.entrySet()) {
+            aux.put(m.getKey(), m.getValue());
+        }
+        return aux;
+    }
 }

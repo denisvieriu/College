@@ -33,7 +33,9 @@ public class WriteH implements IStmt{
         }
 
         heap.update(symTable.get(varName), r);
-        return state;
+
+        //return state;
+        return null;
     }
 
     @Override

@@ -37,6 +37,8 @@ public class IfStmt implements IStmt {
         else {
             exStack.push(elseS);
         }
-        return state;
+        //return state;
+
+        return null;
     }
 }

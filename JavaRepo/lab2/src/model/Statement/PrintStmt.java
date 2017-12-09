@@ -28,6 +28,8 @@ public class PrintStmt implements IStmt {
         MyIHeap<Integer, Integer> heap = state.getHeap();
         int res = exp.eval(dict, heap);
         list.add(res);
-        return state;
+
+        //return state;
+        return null;
     }
 }

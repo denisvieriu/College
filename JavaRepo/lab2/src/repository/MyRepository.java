@@ -6,6 +6,7 @@ import utils.FileData;
 import utils.adt.MyIDictionary;
 import utils.adt.MyIFileTable;
 import utils.PrgState;
+import utils.adt.MyIHeap;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -48,6 +49,9 @@ public class MyRepository implements MyIRepository {
     public void logPrgStateExec(PrgState state){
         try(PrintWriter log = new PrintWriter(
                 new BufferedWriter(new FileWriter(fileName, true)))){
+            int idC = state.getId();
+            log.println("Current id: [" + idC + "]");
+
             log.println("ExeStack:");
             for (IStmt st : state.getExeStack().getAll()){
                 log.println(st);
@@ -68,6 +72,12 @@ public class MyRepository implements MyIRepository {
             MyIFileTable<Integer, FileData> fileTable = state.getFileTable();
             for (int id : fileTable.getAll()){
                 log.println(id + "-->" + fileTable.get(id).getFilename());
+            }
+
+            log.println("Heap:");
+            MyIHeap<Integer, Integer> heap = state.getHeap();
+            for (int address : heap.getAll()) {
+                log.println(address + "-->" + heap.get(address));
             }
 
             log.println();

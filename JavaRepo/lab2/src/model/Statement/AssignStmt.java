@@ -33,6 +33,8 @@ public class AssignStmt implements IStmt {
         else {
             symTbl.put(id, val);
         }
-        return state;
+
+        // return state;
+        return null;
     }
 }

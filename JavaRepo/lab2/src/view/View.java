@@ -68,6 +68,12 @@ class View {
 
         System.out.println("12 - Example 12");
         System.out.println("\tv=6; (while (v-4) print(v);v=v-1);print(v)");
+
+        System.out.println("13 - Example 13");
+        System.out.println("\tv=10;new(a,22)");
+        System.out.println("\tfork(wH(a,30);v=32;print(v);print(rH(a)))");
+        System.out.println("\t print(v);print(rH(a))");
+
         System.out.println(del);
     }
 
@@ -225,13 +231,43 @@ class View {
 
                 break;
             }
+            case 13:
+            {
+                stmt = new CompStmt(
+                        new AssignStmt("v", new ConstExp(10)),
+                        new CompStmt(
+                                new NewH("a", new ConstExp(22)),
+                                new CompStmt(
+                                        new ForkStmt(new CompStmt(
+                                                new WriteH("a", new ConstExp(30)),
+                                                new CompStmt(
+                                                        new AssignStmt("v", new ConstExp(32)),
+                                                        new CompStmt(
+                                                                new PrintStmt(new VarExp("v")),
+                                                                new PrintStmt(new ReadH("a"))
+                                                        )
+                                                )
+                                        )),
+                                new CompStmt(
+                                        new PrintStmt(new VarExp("v")),
+                                        new PrintStmt(new ReadH("a"))
+                                ))
+                        )
+                );
+                break;
+            }
             default:
                 throw new NotExistingException("Invalid command.");
         }
         PrgState prgState = new PrgState(exeStack, dict, out, fileTable, heap, stmt);
 
         ctrl.addPrgState(prgState);
-        ctrl.allStep();
+        try {
+            ctrl.allStep();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            System.out.println("Some error: " + e);
+        }
     }
 
     public void executeMainMenu(){

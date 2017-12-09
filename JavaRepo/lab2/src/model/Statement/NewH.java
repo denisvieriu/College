@@ -30,7 +30,8 @@ public class NewH implements IStmt{
             symTable.put(var_name,id);
         }
 
-        return state;
+        //return state;
+        return null;
     }
 
     @Override
