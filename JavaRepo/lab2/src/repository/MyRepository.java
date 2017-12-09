@@ -12,9 +12,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyRepository implements MyIRepository {
-    private ArrayList<PrgState> aL;
+    private List<PrgState> aL;
     private String fileName;
 
     public MyRepository() {
@@ -34,14 +35,17 @@ public class MyRepository implements MyIRepository {
     }
 
     @Override
-    public PrgState getCurrentPrgState()
-    {
-        return aL.get(0);
+    public void setPrgList(List<PrgState> l) {
+        aL = l;
     }
 
     @Override
-    public void logPrgStateExec(){
-        PrgState state = getCurrentPrgState();
+    public List<PrgState> getPrgList() {
+        return aL;
+    }
+
+    @Override
+    public void logPrgStateExec(PrgState state){
         try(PrintWriter log = new PrintWriter(
                 new BufferedWriter(new FileWriter(fileName, true)))){
             log.println("ExeStack:");

@@ -19,7 +19,6 @@
 
 (defun main_list_add (n La)
   (setq *listLength* (list-length-rec La))
-  (list-nth-add n La)
 )
 
 (defvar newList)
@@ -28,9 +27,9 @@
 (print newList)
 
 (defun testsm()
-  (assert (equal (main_list_add 3 *list*) '(10 20 30 30 40 50)))
-  (assert (equal (main_list_add 1 '(10 20)) '(10 10 20)))
-  (assert (equal (main_list_add 10 *list*) '(10 20 30 40 50)))
+  (assert (equal (list-nth-add 3 *list*) '(10 20 30 30 40 50)))
+  (assert (equal (list-nth-add 1 '(10 20)) '(10 10 20)))
+  (assert (equal (list-nth-add 10 *list*) '(10 20 30 40 50)))
 )
 
 (testsm)

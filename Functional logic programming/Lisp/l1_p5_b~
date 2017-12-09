@@ -26,13 +26,6 @@
 (print newList)
 
 
-(defun tests()
-  (assert (equal (association_list *list1* *list2*) '((A X) (B Y) (C Z)) ) )
-  (assert (equal (association_list '(A B C D) '(A X Y)) nil))
-  (assert (equal (association_list '(A B C D) '(A B C D)) '((A A) (B B) (C C) (D D)) ) ) 
-)
-
-(tests)
 
   
  

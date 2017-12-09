@@ -9,7 +9,7 @@
 )
      
 (defvar nrSubL)
-(setq nrSubL (main_nr_subl *list*))
+(setq nrSubL (nr_of_sublists *list*))
 
 (defun main_nr_subl (L)
   (cond
@@ -24,5 +24,3 @@
   (assert (= (main_nr_subl nil)                0))
   (assert (= (main_nr_subl '(10 (20 (30) 30))) 3))  
 )
-
-(tests)
