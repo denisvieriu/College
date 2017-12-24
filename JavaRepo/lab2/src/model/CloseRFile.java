@@ -40,7 +40,7 @@ public class CloseRFile implements IStmt {
             throw new InterpreterException(x.toString());
         }
 
-        return state;
+        return null;
     }
 
     @Override

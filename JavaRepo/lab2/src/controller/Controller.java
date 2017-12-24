@@ -12,6 +12,7 @@ import utils.adt.MyIStack;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -37,13 +38,13 @@ public class Controller {
     }
 
     public void oneStepForAllPrg(List<PrgState> prgList) throws InterruptedException {
-        prgList.forEach(prg->repo.logPrgStateExec(prg));
-
+        //prgList.forEach(prg->repo.logPrgStateExec(prg));
+        //System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>");
         //RUN concurrently one step for each of the existing PrgStates
 
         List<Callable<PrgState>> callList;
         callList = prgList.stream()
-                .map((PrgState p)->(Callable<PrgState>)(()->{return p.executeOneStep();}))
+                .map((PrgState p)->(Callable<PrgState>)(p::executeOneStep))
                 .collect(Collectors.toList());
 
         List<PrgState> lp = executor.invokeAll(callList).stream()
@@ -51,17 +52,16 @@ public class Controller {
                     try{
                         return future.get();
                     }
-                    catch (InterruptedException e) {
-                        throw new InterpreterException("Some thread error?...");
-                    }
-                    catch (ExecutionException e) {
+                    catch (InterruptedException | ExecutionException e) {
                         throw new InterpreterException("Some thread error?...");
                     }
                 })
-                .filter(p->p!=null)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
         prgList.addAll(lp);
+        System.out.println();
+        prgList.forEach(prg->repo.logPrgStateExec(prg));
         repo.setPrgList(prgList);
     }
 
@@ -75,6 +75,7 @@ public class Controller {
         }
 
         executor.shutdown();
+        System.out.println(" >>>>> " +prg.size());
         repo.setPrgList(prg);
     }
 

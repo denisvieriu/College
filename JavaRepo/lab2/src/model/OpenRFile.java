@@ -52,7 +52,7 @@ public class OpenRFile implements IStmt {
             catch (IOException ex) {
                 throw new InterpreterException(ex.toString());
             }
-            return state;
+            return null;
         }
     }
 

@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  toylanguage:
+    image: toylanguage
+    build:
+      context: .\Toy Language
+      dockerfile: Dockerfile

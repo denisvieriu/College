@@ -36,6 +36,6 @@ public class NewH implements IStmt{
 
     @Override
     public String toString(){
-        return "NewH(" + var_name + ", " + expression + ")";
+        return "newH(" + var_name + ", " + expression + ")";
     }
 }

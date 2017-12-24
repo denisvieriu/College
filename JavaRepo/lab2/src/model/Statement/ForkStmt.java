@@ -15,9 +15,9 @@ public class ForkStmt implements IStmt {
     public PrgState execute(PrgState p) {
         // Creating the stack containing only the statement given
         MyIStack<IStmt> stack = new MyStack<>();
-        stack.push(stmt);
+        //stack.push(stmt);
 
-        // A deep copy of the symbol table, we don't want to share it between processes
+        // A deep copy of the symbol table, we don't want to share it between
         MyIDictionary<String, Integer> st = p.getSymTable().copy();
 
         // The rest are references, *can be shared between processes, we don't want to use same heap addresses
