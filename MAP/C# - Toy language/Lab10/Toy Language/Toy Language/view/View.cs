@@ -7,6 +7,7 @@ using Toy_Language.controller;
 using Toy_Language.model.expressions;
 using Toy_Language.model.statement;
 using Toy_Language.utils;
+using Toy_Language.utils.adt;
 
 namespace Toy_Language.view
 {
@@ -37,6 +38,7 @@ namespace Toy_Language.view
             IModList<int> outList = new ModList<int>();
             IModDictionary<string, int> dict = new ModDictionary<string, int>();
             IStmt stmt = default(IStmt);
+            IFileTable<int, FileData> fileTable = new FileTable<int, FileData>();
 
             switch (command)
             {
@@ -52,7 +54,7 @@ namespace Toy_Language.view
                     throw new Exception("Invalid command");
             }
 
-            PrgState prgState = new PrgState(exeStack, dict, outList, stmt);
+            PrgState prgState = new PrgState(exeStack, dict, outList, fileTable, stmt);
 
             ctrl.AddPrgState(prgState);
             try

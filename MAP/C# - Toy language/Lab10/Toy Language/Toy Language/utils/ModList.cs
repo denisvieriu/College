@@ -14,25 +14,30 @@ namespace Toy_Language.utils
 
         public ModList()
         {
-            list = new List<T>();
+            this.List = new List<T>();
         }
 
         public void Add(T el)
         {
-            list.Add(el);
+            this.List.Add(el);
         }
 
         public override String ToString()
         {
             StringBuilder stb = new StringBuilder();
 
-            foreach (T e in list)
+            foreach (T e in this.List)
             {
                 stb.Append(e.ToString());
                 stb.Append('\n');
             }
 
             return stb.ToString();
+        }
+
+        public List<T> GetAll()
+        {
+            return this.List;
         }
     }
 }

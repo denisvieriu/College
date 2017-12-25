@@ -1,0 +1,18 @@
+﻿Exestack:
+	v=2
+	print(v)
+SymbTable:
+Out:
+____________________
+Exestack:
+	print(v)
+SymbTable:
+	v-->2
+Out:
+____________________
+Exestack:
+SymbTable:
+	v-->2
+Out:
+	2
+____________________

@@ -45,6 +45,7 @@ namespace Toy_Language.controller
                 while(true)
                 {
                     OneStep(prg);
+                    repo.LogPrgStateExec();
                     System.Console.WriteLine(prg.ToString());
                 }
             }

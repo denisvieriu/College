@@ -60,6 +60,11 @@ namespace Toy_Language.utils
             this.dict[key] = val;
         }
 
+        public IDictionary<Key, Value> GetAll()
+        {
+            return dict;
+        }
+
         public override string ToString()
         {
             StringBuilder stb = new StringBuilder();
@@ -76,3 +81,4 @@ namespace Toy_Language.utils
 
     }
 }
+ 

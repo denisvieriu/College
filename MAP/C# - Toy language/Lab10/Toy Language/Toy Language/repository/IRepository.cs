@@ -11,5 +11,6 @@ namespace Toy_Language.repository
     {
         void AddPrgState(PrgState p);
         PrgState GetCurrentPrg();
+        void LogPrgStateExec();
     }
 }

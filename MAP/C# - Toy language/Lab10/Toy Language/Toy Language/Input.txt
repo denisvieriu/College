@@ -1,0 +1,5 @@
+Exestack:
+	v=2
+Exestack:
+	print(v)
+	v=2

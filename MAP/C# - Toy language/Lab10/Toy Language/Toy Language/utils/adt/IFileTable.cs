@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Toy_Language.utils
+namespace Toy_Language.utils.adt
 {
-    public interface IModDictionary<K, V>
+    public interface IFileTable<K, V>
     {
-        IDictionary<K, V> Dict { get; set; }
+        void Add(K key, V val);
+        void Remove(K key);
         V Get(K key);
         bool Contains(K key);
-        void Put(K key, V val);
-        void Update(K key, V val);
         IDictionary<K, V> GetAll();
-     }
+    
+    }
 }

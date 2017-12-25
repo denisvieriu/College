@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Toy_Language.utils
 {
-    public interface IModList<T>
+    public class IDGenerator
     {
-        List<T> List { get; set; }
-        void Add(T el);
-        List<T> GetAll();
+        private static int counter = 1;
+        public static int GenerateId() { return counter++; }
     }
 }

@@ -24,8 +24,8 @@ namespace Toy_Language.model.statement
         public PrgState Execute(PrgState state)
         {
             IExeStack<IStmt> exeStack = state.ExeStack;
-            exeStack.Push(first);
             exeStack.Push(second);
+            exeStack.Push(first);
 
             return state;
         }
