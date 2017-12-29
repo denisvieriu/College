@@ -77,4 +77,10 @@ public class MyDictionary<K,V> implements MyIDictionary<K,V> {
         }
         return aux;
     }
+
+    @Override
+    public void clear()
+    {
+        hMap.clear();
+    }
 }

@@ -63,4 +63,10 @@ public class MyHeap<K,V> implements MyIHeap<K,V>{
         return sb.toString();
     }
 
+    @Override
+    public void clear()
+    {
+        hMap.clear();
+    }
+
 }

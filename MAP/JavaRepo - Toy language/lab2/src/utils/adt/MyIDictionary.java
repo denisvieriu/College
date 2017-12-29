@@ -10,6 +10,7 @@ public interface MyIDictionary<K,V> {
     public Iterable<K> getAll();
     public Map<K,V> getContent();
     public void setContent(Map<K, V> symTbl);
+    public void clear();
 
     MyIDictionary<K,V> copy();
 }

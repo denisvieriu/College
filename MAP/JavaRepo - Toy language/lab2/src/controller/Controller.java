@@ -7,6 +7,7 @@ import exceptions.NotExistingException;
 import model.Statement.IStmt;
 import repository.*;
 import utils.*;
+import utils.adt.MyIHeap;
 import utils.adt.MyIStack;
 
 import java.util.Collection;
@@ -27,7 +28,7 @@ public class Controller {
         repo = r;
     }
 
-    public void addPrgState(PrgState prgState){
+     public void addPrgState(PrgState prgState){
         repo.addPrgState(prgState);
     }
 
@@ -68,14 +69,15 @@ public class Controller {
     public void allStep() throws InterruptedException {
         executor = Executors.newFixedThreadPool(3) ;
         List<PrgState> prg = removeCompltedPrg(repo.getPrgList());
+        System.out.println(">>>>>>>>>>> " + prg.size());
 
         while (prg.size() > 0) {
             oneStepForAllPrg(prg);
+            System.out.println(">>>>>>>>>>> " + prg.size());
             prg = removeCompltedPrg(repo.getPrgList());
         }
 
         executor.shutdown();
-        System.out.println(" >>>>> " +prg.size());
         repo.setPrgList(prg);
     }
 

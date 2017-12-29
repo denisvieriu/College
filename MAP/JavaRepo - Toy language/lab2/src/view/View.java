@@ -32,6 +32,8 @@ class View {
         System.out.println("Main menu");
         System.out.println("Here are some hardcoded examples:");
 
+        System.out.println("0 - Exit");
+
         System.out.println("1 - Example 1:");
         System.out.println("\tv=2;Print(v)");
 
@@ -77,12 +79,15 @@ class View {
         System.out.println(del);
     }
 
-    private void executeCommand(int command) throws NotExistingException, DivideByZeroException, InvalidOperandException {
-        MyIStack<IStmt> exeStack = new MyStack<>();
-        MyIList<Integer> out = new MyList<>();
-        MyIDictionary<String, Integer> dict = new MyDictionary<>();
-        MyIFileTable<Integer, FileData> fileTable = new MyFileTable<>();
-        MyIHeap<Integer, Integer> heap = new MyHeap<>();
+    private void executeCommand(
+            int command,
+            MyIStack<IStmt> exeStack,
+            MyIList<Integer> out,
+            MyIDictionary<String, Integer> dict,
+            MyIFileTable<Integer, FileData> fileTable,
+            MyIHeap<Integer, Integer> heap
+        ) throws NotExistingException, DivideByZeroException, InvalidOperandException {
+
         IStmt stmt = null;
         switch (command){
             case 1:
@@ -108,7 +113,7 @@ class View {
             case 4:
             {
                 stmt =  new CompStmt(
-                            new OpenRFile("var_f", "E:\\JavaRepo\\lab2\\src\\test.in"),
+                            new OpenRFile("var_f", "E:\\GitRepoCollege\\MAP\\JavaRepo - Toy language\\lab2\\Input"),
                             new CompStmt(
                                 new ReadFile(new VarExp("var_f"), "var_c"),
                                 new CompStmt(
@@ -274,14 +279,32 @@ class View {
         Scanner sc = new Scanner(System.in);
         String str;
         int command;
+        MyIStack<IStmt> exeStack = new MyStack<>();
+        MyIList<Integer> out = new MyList<>();
+        MyIDictionary<String, Integer> dict = new MyDictionary<>();
+        MyIFileTable<Integer, FileData> fileTable = new MyFileTable<>();
+        MyIHeap<Integer, Integer> heap = new MyHeap<>();
         this.mainMenu();
 
-        System.out.println("Enter your command:");
-        command = sc.nextInt();
-        try {
-            this.executeCommand(command);
-        } catch (NotExistingException | InvalidOperandException | DivideByZeroException e) {
-            System.out.println(e);
+        while(true) {
+            System.out.println("Enter your command:");
+            command = sc.nextInt();
+            if (command == 0)
+            {
+                break;
+            }
+            try {
+                this.executeCommand(command, exeStack, out, dict, fileTable, heap);
+            } catch (NotExistingException | InvalidOperandException | DivideByZeroException e) {
+                System.out.println(e);
+            }
+            finally {
+                exeStack.clear();
+                out.clear();
+                dict.clear();
+                fileTable.clear();
+                heap.clear();
+            }
         }
 
     }

@@ -13,7 +13,7 @@ namespace Toy_Language.model.statement
         private Exp exp;
         private IStmt thenS, elseS;
 
-        private IfStmt(
+        public IfStmt(
             Exp _exp,
             IStmt _stmt1, 
             IStmt _stmt2

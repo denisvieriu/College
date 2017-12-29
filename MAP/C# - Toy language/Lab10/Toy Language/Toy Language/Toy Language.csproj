@@ -48,11 +48,13 @@
     <Compile Include="model\expressions\Exp.cs" />
     <Compile Include="model\expressions\VarExp.cs" />
     <Compile Include="model\statement\AssingStmt.cs" />
+    <Compile Include="model\statement\CloseRFile.cs" />
     <Compile Include="model\statement\CompStmt.cs" />
     <Compile Include="model\statement\IfStmt.cs" />
     <Compile Include="model\statement\IStmt.cs" />
     <Compile Include="model\statement\OpenRFile.cs" />
     <Compile Include="model\statement\PrintStmt.cs" />
+    <Compile Include="model\statement\ReadRfile.cs" />
     <Compile Include="utils\adt\IFileTable.cs" />
     <Compile Include="utils\FileData.cs" />
     <Compile Include="utils\FileTable.cs" />
@@ -72,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="test.in" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Input2.txt" />

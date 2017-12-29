@@ -36,4 +36,9 @@ public class MyList<T> implements MyIList<T> {
         return list;
     }
 
+    @Override
+    public void clear()
+    {
+        list.clear();
+    }
 }

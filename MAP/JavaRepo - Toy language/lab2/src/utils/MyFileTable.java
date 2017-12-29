@@ -44,4 +44,10 @@ public class MyFileTable<K,V> implements MyIFileTable<K,V> {
 
     @Override
     public Map<K, V> getContent(){ return dict; }
+
+    @Override
+    public void clear()
+    {
+        dict.clear();
+    }
 }

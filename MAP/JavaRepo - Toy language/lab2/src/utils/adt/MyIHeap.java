@@ -10,4 +10,5 @@ public interface MyIHeap<K,V> {
     public Iterable<K> getAll();
     public void setContent(Map<K, V> heap);
     public Map<K,V> getContent();
+    public void clear();
 }

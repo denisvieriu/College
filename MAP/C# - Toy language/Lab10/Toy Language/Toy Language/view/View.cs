@@ -49,6 +49,24 @@ namespace Toy_Language.view
                     break;
                 case 2:
                     break;
+                case 3:
+                    break;
+                case 4:
+                    stmt = new CompStmt(
+                        new OpenRFile("var_f", @"E:\GitRepoCollege\MAP\C# - Toy language\Lab10\Toy Language\Toy Language\test.in"),
+                        new CompStmt(
+                            new ReadRFile(new VarExp("var_f"), "var_c"),
+                            new CompStmt(
+                                new PrintStmt(new VarExp("var_c")),
+                                new CompStmt(
+                                new IfStmt(
+                                    new VarExp("var_c"),
+                                        new CompStmt(
+                                        new ReadRFile(new VarExp("var_f"), "var_c"),
+                                        new PrintStmt(new VarExp("var_c"))),
+                                        new PrintStmt(new ConstExp(0))),
+                                new CloseRFile(new VarExp("var_f"))))));
+                    break;
                 default:
                     // throw some error
                     throw new Exception("Invalid command");

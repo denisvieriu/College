@@ -5,4 +5,5 @@ public interface MyIStack<T> {
     public T pop();
     public boolean isEmpty();
     public Iterable<T> getAll();
+    public void clear();
 }

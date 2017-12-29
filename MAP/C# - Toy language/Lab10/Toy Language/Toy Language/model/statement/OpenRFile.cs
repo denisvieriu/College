@@ -59,5 +59,10 @@ namespace Toy_Language.model.statement
                 return state;
             }
         }
+
+        public override string ToString()
+        {
+            return "OpenFile(" + fileName + " " + varFileId + ")";
+        }
     }
 }

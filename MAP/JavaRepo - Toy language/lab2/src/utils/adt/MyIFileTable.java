@@ -10,4 +10,5 @@ public interface MyIFileTable<K, V> {
     public Iterable<V> getValues();
     public boolean contains(K key);
     public Map<K, V> getContent();
+    public void clear();
 }
