@@ -8,10 +8,10 @@
 
 These is a repository containg all the homeworks and personal projects made during the the college year. 
 
-#### List of courses
--##### Year 1:
---###### Sem 1:
----###### Blank
+## List of courses
+- Year 1:
+- Sem 1:
+- Blank
 
 ## Useful links
 
