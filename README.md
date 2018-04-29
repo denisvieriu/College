@@ -1,6 +1,6 @@
 ![UBB](http://www.ubbcluj.ro/img/logo_UBB_en.png)
 
-[![College icon] (http://icons.veryicon.com/ico/Culture/Real%20Vista%20Education/graduated.ico)
+
 <br>
 <br>
 
