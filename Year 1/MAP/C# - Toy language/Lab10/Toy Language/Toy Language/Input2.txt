@@ -1,0 +1,398 @@
+﻿Exestack:
+	Toy_Language.model.statement.OpenRFile
+	(Toy_Language.model.statement.ReadRFile;(IF(var_c)THEN((Toy_Language.model.statement.ReadRFile;print(var_c)))ELSE(print(0));Toy_Language.model.statement.CloseRFile))
+SymbTable:
+Out:
+____________________
+Exestack:
+	Toy_Language.model.statement.OpenRFile
+	(Toy_Language.model.statement.ReadRFile;(IF(var_c)THEN((Toy_Language.model.statement.ReadRFile;print(var_c)))ELSE(print(0));Toy_Language.model.statement.CloseRFile))
+SymbTable:
+Out:
+____________________
+Exestack:
+	(Toy_Language.model.statement.ReadRFile;(IF(var_c)THEN((Toy_Language.model.statement.ReadRFile;print(var_c)))ELSE(print(0));Toy_Language.model.statement.CloseRFile))
+SymbTable:
+	var_f-->1
+Out:
+____________________
+Exestack:
+	Toy_Language.model.statement.ReadRFile
+	(IF(var_c)THEN((Toy_Language.model.statement.ReadRFile;print(var_c)))ELSE(print(0));Toy_Language.model.statement.CloseRFile)
+SymbTable:
+	var_f-->1
+Out:
+____________________
+Exestack:
+	(IF(var_c)THEN((Toy_Language.model.statement.ReadRFile;print(var_c)))ELSE(print(0));Toy_Language.model.statement.CloseRFile)
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	IF(var_c)THEN((Toy_Language.model.statement.ReadRFile;print(var_c)))ELSE(print(0))
+	Toy_Language.model.statement.CloseRFile
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	(Toy_Language.model.statement.ReadRFile;print(var_c))
+	Toy_Language.model.statement.CloseRFile
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	Toy_Language.model.statement.ReadRFile
+	print(var_c)
+	Toy_Language.model.statement.CloseRFile
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	print(var_c)
+	Toy_Language.model.statement.CloseRFile
+SymbTable:
+	var_f-->1
+	var_c-->50
+Out:
+____________________
+Exestack:
+	Toy_Language.model.statement.CloseRFile
+SymbTable:
+	var_f-->1
+	var_c-->50
+Out:
+	50
+____________________
+Exestack:
+SymbTable:
+	var_f-->1
+	var_c-->50
+Out:
+	50
+____________________
+Exestack:
+	Toy_Language.model.statement.OpenRFile
+	(Toy_Language.model.statement.ReadRFile;(IF(var_c)THEN((Toy_Language.model.statement.ReadRFile;print(var_c)))ELSE(print(0));Toy_Language.model.statement.CloseRFile))
+SymbTable:
+Out:
+____________________
+Exestack:
+	(Toy_Language.model.statement.ReadRFile;(IF(var_c)THEN((Toy_Language.model.statement.ReadRFile;print(var_c)))ELSE(print(0));Toy_Language.model.statement.CloseRFile))
+SymbTable:
+	var_f-->1
+Out:
+____________________
+Exestack:
+	Toy_Language.model.statement.ReadRFile
+	(IF(var_c)THEN((Toy_Language.model.statement.ReadRFile;print(var_c)))ELSE(print(0));Toy_Language.model.statement.CloseRFile)
+SymbTable:
+	var_f-->1
+Out:
+____________________
+Exestack:
+	(IF(var_c)THEN((Toy_Language.model.statement.ReadRFile;print(var_c)))ELSE(print(0));Toy_Language.model.statement.CloseRFile)
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	IF(var_c)THEN((Toy_Language.model.statement.ReadRFile;print(var_c)))ELSE(print(0))
+	Toy_Language.model.statement.CloseRFile
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	(Toy_Language.model.statement.ReadRFile;print(var_c))
+	Toy_Language.model.statement.CloseRFile
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	Toy_Language.model.statement.ReadRFile
+	print(var_c)
+	Toy_Language.model.statement.CloseRFile
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	print(var_c)
+	Toy_Language.model.statement.CloseRFile
+SymbTable:
+	var_f-->1
+	var_c-->50
+Out:
+____________________
+Exestack:
+	Toy_Language.model.statement.CloseRFile
+SymbTable:
+	var_f-->1
+	var_c-->50
+Out:
+	50
+____________________
+Exestack:
+SymbTable:
+	var_f-->1
+	var_c-->50
+Out:
+	50
+____________________
+Exestack:
+	OpenFile(E:\GitRepoCollege\MAP\C# - Toy language\Lab10\Toy Language\Toy Language\test.in var_f)
+	(ReadFile(var_f,var_c);(IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0));CloseFile(var_f)))
+SymbTable:
+Out:
+____________________
+Exestack:
+	(ReadFile(var_f,var_c);(IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0));CloseFile(var_f)))
+SymbTable:
+	var_f-->1
+Out:
+____________________
+Exestack:
+	ReadFile(var_f,var_c)
+	(IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0));CloseFile(var_f))
+SymbTable:
+	var_f-->1
+Out:
+____________________
+Exestack:
+	(IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0));CloseFile(var_f))
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0))
+	CloseFile(var_f)
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	(ReadFile(var_f,var_c);print(var_c))
+	CloseFile(var_f)
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	ReadFile(var_f,var_c)
+	print(var_c)
+	CloseFile(var_f)
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	print(var_c)
+	CloseFile(var_f)
+SymbTable:
+	var_f-->1
+	var_c-->50
+Out:
+____________________
+Exestack:
+	CloseFile(var_f)
+SymbTable:
+	var_f-->1
+	var_c-->50
+Out:
+	50
+____________________
+Exestack:
+SymbTable:
+	var_f-->1
+	var_c-->50
+Out:
+	50
+____________________
+Exestack:
+	OpenFile(E:\GitRepoCollege\MAP\C# - Toy language\Lab10\Toy Language\Toy Language\test.in var_f)
+	(ReadFile(var_f,var_c);(IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0));CloseFile(var_f)))
+SymbTable:
+Out:
+____________________
+Exestack:
+	(ReadFile(var_f,var_c);(IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0));CloseFile(var_f)))
+SymbTable:
+	var_f-->1
+Out:
+____________________
+Exestack:
+	ReadFile(var_f,var_c)
+	(IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0));CloseFile(var_f))
+SymbTable:
+	var_f-->1
+Out:
+____________________
+Exestack:
+	(IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0));CloseFile(var_f))
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0))
+	CloseFile(var_f)
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	(ReadFile(var_f,var_c);print(var_c))
+	CloseFile(var_f)
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	ReadFile(var_f,var_c)
+	print(var_c)
+	CloseFile(var_f)
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	print(var_c)
+	CloseFile(var_f)
+SymbTable:
+	var_f-->1
+	var_c-->50
+Out:
+____________________
+Exestack:
+	CloseFile(var_f)
+SymbTable:
+	var_f-->1
+	var_c-->50
+Out:
+	50
+____________________
+Exestack:
+SymbTable:
+	var_f-->1
+	var_c-->50
+Out:
+	50
+____________________
+Exestack:
+	OpenFile(E:\GitRepoCollege\MAP\C# - Toy language\Lab10\Toy Language\Toy Language\test.in var_f)
+	(ReadFile(var_f,var_c);(print(var_c);(IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0));CloseFile(var_f))))
+SymbTable:
+Out:
+____________________
+Exestack:
+	(ReadFile(var_f,var_c);(print(var_c);(IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0));CloseFile(var_f))))
+SymbTable:
+	var_f-->1
+Out:
+____________________
+Exestack:
+	ReadFile(var_f,var_c)
+	(print(var_c);(IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0));CloseFile(var_f)))
+SymbTable:
+	var_f-->1
+Out:
+____________________
+Exestack:
+	(print(var_c);(IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0));CloseFile(var_f)))
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	print(var_c)
+	(IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0));CloseFile(var_f))
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+____________________
+Exestack:
+	(IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0));CloseFile(var_f))
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+	15
+____________________
+Exestack:
+	IF(var_c)THEN((ReadFile(var_f,var_c);print(var_c)))ELSE(print(0))
+	CloseFile(var_f)
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+	15
+____________________
+Exestack:
+	(ReadFile(var_f,var_c);print(var_c))
+	CloseFile(var_f)
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+	15
+____________________
+Exestack:
+	ReadFile(var_f,var_c)
+	print(var_c)
+	CloseFile(var_f)
+SymbTable:
+	var_f-->1
+	var_c-->15
+Out:
+	15
+____________________
+Exestack:
+	print(var_c)
+	CloseFile(var_f)
+SymbTable:
+	var_f-->1
+	var_c-->50
+Out:
+	15
+____________________
+Exestack:
+	CloseFile(var_f)
+SymbTable:
+	var_f-->1
+	var_c-->50
+Out:
+	15
+	50
+____________________
+Exestack:
+SymbTable:
+	var_f-->1
+	var_c-->50
+Out:
+	15
+	50
+____________________
