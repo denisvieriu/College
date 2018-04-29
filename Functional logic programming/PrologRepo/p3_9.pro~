@@ -1,6 +1,0 @@
-inserare([],E,[E]).
-inserare([H|T],E,[E,H|T]).
-inserare([H|T],E,[H|RT]):-
-    inserare(T,E,RT).
-
-
