@@ -1,0 +1,4 @@
+rootProject.name = 'tstt'
+include 'tstt-core'
+include 'tstt-web'
+

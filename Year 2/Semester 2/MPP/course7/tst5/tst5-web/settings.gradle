@@ -1,0 +1,2 @@
+include ':tst5-core'
+project(':tst5-core').projectDir = new File(settingsDir, '../tst5-core')

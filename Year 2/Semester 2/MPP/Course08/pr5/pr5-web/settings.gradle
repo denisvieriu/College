@@ -1,0 +1,2 @@
+include ':pr5-core'
+project(':pr5-core').projectDir = new File(settingsDir, '../pr5-core')

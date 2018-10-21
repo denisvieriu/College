@@ -1,0 +1,4 @@
+rootProject.name = 'forfinal'
+include 'forfinal-core'
+include 'forfinal-web'
+

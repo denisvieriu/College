@@ -1,0 +1,2 @@
+include ':forfinal-core'
+project(':forfinal-core').projectDir = new File(settingsDir, '../forfinal-core')

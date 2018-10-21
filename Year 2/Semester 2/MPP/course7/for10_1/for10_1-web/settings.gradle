@@ -1,0 +1,2 @@
+include ':for10_1-core'
+project(':for10_1-core').projectDir = new File(settingsDir, '../for10_1-core')

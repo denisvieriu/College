@@ -1,0 +1,2 @@
+include ':pr102-core'
+project(':pr102-core').projectDir = new File(settingsDir, '../pr102-core')

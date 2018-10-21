@@ -1,0 +1,4 @@
+rootProject.name = 'train1'
+include 'train1-core'
+include 'train1-web'
+

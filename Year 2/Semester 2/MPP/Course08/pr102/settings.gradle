@@ -1,0 +1,4 @@
+rootProject.name = 'pr102'
+include 'pr102-core'
+include 'pr102-web'
+

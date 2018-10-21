@@ -1,0 +1,164 @@
+body {
+    margin: 60px auto;
+}
+
+h1 {
+    font-size: 3em;
+    font-family: 'Helvetica', 'Arial', 'Sans-Serif';
+}
+
+p, button, input {
+    font-size: 1.5em;
+    line-height: 1.4em;
+    color: #333;
+    margin-bottom: 1em;
+}
+
+#container {
+    background-color: lightblue;
+    height: 587px;
+}
+
+#gameboard {
+    float: left;
+    position: relative;
+    margin: 0 auto 2em 100px;
+    width: 500px;
+    height: 500px;
+}
+
+#gameboard div {
+    float: left;
+    position: absolute;
+    background-color: darkgray; /* Old browsers */
+    border: 1px solid #ddd;
+    width: 50px;
+    height: 50px;
+}
+
+#gameboard div#myShip {
+    float: left;
+    position: absolute;
+    background-color: green; /* Old browsers */
+    border: 1px solid #ddd;
+    width: 50px;
+    height: 50px;
+}
+
+#gameboard2 {
+    float: left;
+    position: relative;
+    margin: 0 auto 2em 300px;
+    width: 500px;
+    height: 500px;
+}
+
+#gameboard2 div {
+    float: left;
+    position: absolute;
+    background: #f6f8f9; /* Old browsers */
+    border: 1px solid #ddd;
+    width: 50px;
+    height: 50px;
+}
+
+
+form {
+    width: 45%;
+    margin: 50px auto;
+    text-align: left;
+    padding: 20px;
+    border: 1px solid #bbbbbb;
+    border-radius: 5px;
+}
+
+.input-group label {
+    display: block;
+    text-align: left;
+    margin: 3px;
+}
+
+.input-group input {
+    height: 30px;
+    width: 95%;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.btn {
+    margin-top: 8px;
+    padding: 10px;
+    font-size: 15px;
+    color: white;
+    background: #5F9EA0;
+    border: none;
+    border-radius: 5px;
+}
+
+
+/* eventsComponent's private CSS styles */
+.selected {
+    background-color: #CFD8DC !important;
+    color: white;
+}
+.events {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 15em;
+}
+.events li {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    background-color: #EEE;
+    margin: .5em;
+    padding: .3em 0;
+    height: 1.6em;
+    border-radius: 4px;
+}
+.events li.selected:hover {
+    background-color: #BBD8DC !important;
+    color: white;
+}
+.events li:hover {
+    color: #607D8B;
+    background-color: #DDD;
+    left: .1em;
+}
+.events .text {
+    position: relative;
+    top: -3px;
+}
+.events .badge {
+    display: inline-block;
+    font-size: small;
+    color: white;
+    padding: 0.8em 0.7em 0 0.7em;
+    background-color: #607D8B;
+    line-height: 1em;
+    position: relative;
+    left: -1px;
+    top: -4px;
+    height: 1.8em;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px;
+}
+
+.nav {
+    left: 0px;
+    height: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+html, body { margin: 0; padding: 0; }
+
+.container ul {
+    /* for IE below version 7 use `width` instead of `max-width` */
+    max-width: 800px;
+    margin-right: auto;
+    margin-left: auto;
+}

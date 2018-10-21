@@ -1,0 +1,2 @@
+include ':practic1-core'
+project(':practic1-core').projectDir = new File(settingsDir, '../practic1-core')

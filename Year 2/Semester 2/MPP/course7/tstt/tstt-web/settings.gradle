@@ -1,0 +1,2 @@
+include ':tstt-core'
+project(':tstt-core').projectDir = new File(settingsDir, '../tstt-core')

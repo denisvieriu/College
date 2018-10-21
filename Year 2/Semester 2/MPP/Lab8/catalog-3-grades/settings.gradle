@@ -1,0 +1,4 @@
+rootProject.name = 'catalog-3-grades'
+include 'catalog-core'
+include 'catalog-web'
+

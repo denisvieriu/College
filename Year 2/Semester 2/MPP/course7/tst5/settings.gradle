@@ -1,0 +1,4 @@
+rootProject.name = 'tst5'
+include 'tst5-core'
+include 'tst5-web'
+

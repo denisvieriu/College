@@ -1,0 +1,2 @@
+include ':for5_1-core'
+project(':for5_1-core').projectDir = new File(settingsDir, '../for5_1-core')

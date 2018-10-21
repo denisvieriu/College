@@ -1,0 +1,4 @@
+rootProject.name = 'for5_1'
+include 'for5_1-core'
+include 'for5_1-web'
+
