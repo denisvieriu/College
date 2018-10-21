@@ -1,0 +1,64 @@
+Computer hardware:
+	Processor							Intel(R) Core(TM) i5-6200U CPU @ 2.30GHz, 2401 Mhz, 2 Core(s), 4 Logical Processor(s)
+	Installed Physical Memory (RAM)		8.00 GB
+	BIOS Mode							UEFI
+	SSD									256 GB
+
+Tests performed (Build type: Release x64):
+	Perform test with 2 matrices of form: A(3,3)
+	_____________________________________________________________________________________
+	--> Performing matrix addition single threaded, MAX_LINES: 3, MAX_COLUMS: 3
+	----> Total elapsed time 0 microseconds
+	--> Performing matrix addition multi threaded, MAX_LINES: 3, MAX_COLUMS: 3
+	----> Total elapsed time 4650 microseconds
+	--> Performing matrix multipilication single threaded
+	----> Total elapsed time 0 microseconds
+	--> Performing matrix multipilication multi threaded
+	----> Total elapsed time 508 microseconds
+
+	Perform test with 2 matrices of form: A(10,10)
+	_____________________________________________________________________________________
+	--> Performing matrix addition single threaded, MAX_LINES: 10, MAX_COLUMS: 10
+	----> Total elapsed time 0 microseconds
+	--> Performing matrix addition multi threaded, MAX_LINES: 10, MAX_COLUMS: 10
+	----> Total elapsed time 17923 microseconds
+	--> Performing matrix multipilication single threaded
+	----> Total elapsed time 0 microseconds
+	--> Performing matrix multipilication multi threaded
+	----> Total elapsed time 1415 microseconds
+
+	Perform test with 2 matrices of form: A(20,20)
+	_____________________________________________________________________________________
+	--> Performing matrix addition single threaded, MAX_LINES: 20, MAX_COLUMS: 20
+	----> Total elapsed time 0 microseconds
+	--> Performing matrix addition multi threaded, MAX_LINES: 20, MAX_COLUMS: 20
+	----> Total elapsed time 47766 microseconds
+	--> Performing matrix multipilication single threaded
+	----> Total elapsed time 4 microseconds
+	--> Performing matrix multipilication multi threaded
+	----> Total elapsed time 2365 microseconds
+
+	Perform test with 2 matrices of form: A(30,30)
+	_____________________________________________________________________________________
+	--> Performing matrix addition single threaded, MAX_LINES: 30, MAX_COLUMS: 30
+	----> Total elapsed time 0 microseconds
+	--> Performing matrix addition multi threaded, MAX_LINES: 30, MAX_COLUMS: 30
+	----> Total elapsed time 101430 microseconds
+	--> Performing matrix multipilication single threaded
+	----> Total elapsed time 6 microseconds
+	--> Performing matrix multipilication multi threaded
+	----> Total elapsed time 2740 microseconds
+
+	Perform test with 2 matrices of form: A(100,100)
+	_____________________________________________________________________________________
+	--> Performing matrix addition single threaded, MAX_LINES: 100, MAX_COLUMS: 100
+	----> Total elapsed time 3 microseconds
+	--> Performing matrix addition multi threaded, MAX_LINES: 100, MAX_COLUMS: 100
+	----> Total elapsed time 993162 microseconds
+	--> Performing matrix multipilication single threaded
+	----> Total elapsed time 501 microseconds
+	--> Performing matrix multipilication multi threaded
+	----> Total elapsed time 18382 microseconds
+
+
+

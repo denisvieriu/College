@@ -1,0 +1,28 @@
+Computer hardware:
+	Processor							Intel(R) Core(TM) i5-6200U CPU @ 2.30GHz, 2401 Mhz, 2 Core(s), 4 Logical Processor(s)
+	Installed Physical Memory (RAM)		8.00 GB
+	BIOS Mode							UEFI
+	SSD									256 GB
+
+Main language used: C++
+Tests run (Build type: Release x64):
+	Time difference seconds: 0.327
+	Total threads: 29
+
+	Time difference seconds: 0.259
+	Total threads: 30
+
+	Time difference seconds: 0.279
+	Total threads: 25
+
+	Time difference seconds: 0.521
+	Total threads: 48
+
+	Time difference seconds: 0.577
+	Total threads: 59
+
+Used a single mutex to sichronyze the thread access to shared data:
+-->		std::unique_lock<std::mutex> lck(mtx, std::defer_lock);
+-->		Used std::unique_lock wrapper over std::mutex for deadlock detection
+
+-->		Used the mutex to lock the global sum payment and the global list of payments
