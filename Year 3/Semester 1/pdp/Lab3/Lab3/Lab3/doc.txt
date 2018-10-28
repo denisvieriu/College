@@ -1,0 +1,69 @@
+Processor							Intel(R) Core(TM) i5-6200U CPU @ 2.30GHz, 2401 Mhz, 2 Core(s), 4 Logical Processor(s)
+Installed Physical Memory (RAM)		8.00 GB
+
+C++ used for the tests
+Build type: Release x64
+
+Test1:
+Total threads supported on this system: 4
+Matrix of form M(200,200)
+Running matrix addition single threaded
+----> Total elapsed time 257 microseconds
+Running matrix addition on pool of 4 threads
+----> Total elapsed time 515 microseconds
+Running matrix multiplication single threaded
+----> Total elapsed time 8331 microseconds
+Running matrix multiplication on thread pool
+----> Total elapsed time 4967 microseconds
+Running matrix addition with std::async
+----> Total elapsed time 1062 microseconds
+Running matrix multiplication with std::async
+----> Total elapsed time 12737 microseconds
+
+Test2:
+Total threads supported on this system: 4
+Matrix of form M(100,100)
+Running matrix addition single threaded
+----> Total elapsed time 4 microseconds
+Running matrix addition on pool of 4 threads
+----> Total elapsed time 404 microseconds
+Running matrix multiplication single threaded
+----> Total elapsed time 816 microseconds
+Running matrix multiplication on thread pool
+----> Total elapsed time 788 microseconds
+Running matrix addition with std::async
+----> Total elapsed time 1950 microseconds
+Running matrix multiplication with std::async
+----> Total elapsed time 761 microseconds
+
+Test3:
+Total threads supported on this system: 4
+Matrix of form M(50,50)
+Running matrix addition single threaded
+----> Total elapsed time 2 microseconds
+Running matrix addition on pool of 4 threads
+----> Total elapsed time 354 microseconds
+Running matrix multiplication single threaded
+----> Total elapsed time 75 microseconds
+Running matrix multiplication on thread pool
+----> Total elapsed time 323 microseconds
+Running matrix addition with std::async
+----> Total elapsed time 1706 microseconds
+Running matrix multiplication with std::async
+----> Total elapsed time 818 microseconds
+
+Test4:
+Total threads supported on this system: 4
+Matrix of form M(15,15)
+Running matrix addition single threaded
+----> Total elapsed time 0 microseconds
+Running matrix addition on pool of 4 threads
+----> Total elapsed time 498 microseconds
+Running matrix multiplication single threaded
+----> Total elapsed time 2 microseconds
+Running matrix multiplication on thread pool
+----> Total elapsed time 248 microseconds
+Running matrix addition with std::async
+----> Total elapsed time 413 microseconds
+Running matrix multiplication with std::async
+----> Total elapsed time 98 microseconds

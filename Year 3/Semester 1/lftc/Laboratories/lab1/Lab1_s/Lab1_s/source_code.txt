@@ -1,0 +1,8 @@
+int main
+{
+	int c = 6 ;
+	int d = 3 ;
+	int b ;
+	int r = 10 ;
+	int a = 3 ;
+}

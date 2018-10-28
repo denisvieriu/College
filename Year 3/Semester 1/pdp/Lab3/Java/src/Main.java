@@ -11,6 +11,7 @@ public class Main {
             matrixOperations.MatrixAdditionMultiThreaded(true);
             matrixOperations.MatrixMultiplicationSingleThreaded(true);
             matrixOperations.MatrixMultiplicationMultiThreaded(true);
+            matrixOperations.MatrixAdditionParallelFutures();
         }
     }
 }

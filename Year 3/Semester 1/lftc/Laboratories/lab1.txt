@@ -9,7 +9,7 @@
 	 - operators + - * / < <= = >= % ==
 	 - separators [ ] { }  : ; space
 	 - reserved words:
-	 		char | const | int | printf | scanf | if | else | return | while | true | false
+	 		char | const | int | printf | scanf | if | else | return | while | main | true | false
       b.identifiers
 	   -a sequence of letters and  digits, such that the first charater is a letter; the rule is:
 	     identifier ::= 'letter' | 'letter'{letter}{diggit}

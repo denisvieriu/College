@@ -1,9 +1,9 @@
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class MatrixOperations {
 
@@ -40,6 +40,7 @@ public class MatrixOperations {
             }
         }
     }
+
     public void printMatrix(int matrix[][]) {
         for (int i = 0; i < MAX_LINES; i++, System.out.print("\n")) {
             for (int j = 0; j < MAX_COLUMNS; j++, System.out.print(" ")) {
@@ -48,11 +49,13 @@ public class MatrixOperations {
         }
         System.out.println();
     }
+
     private void PrintElapsedTime() {
         long gTimeElapsed = gEndTime - gStartTime;
         System.out.println("----> Execution time in microseconds : " +
                 gTimeElapsed / 1000);
     }
+
     private void measureElapsedTime(@NotNull TIME_ELAPSED_STATE timeState) {
         switch (timeState) {
             case START_MEASURE:
@@ -108,8 +111,40 @@ public class MatrixOperations {
             }
         }
     }
+    class MatrixAdditionCallable implements Callable<Void> {
+        int line;
+
+        MatrixAdditionCallable(int _line) {
+            this.line = _line;
+        }
+
+        public Void call() {
+            for (int j = 0; j < MAX_COLUMNS; j++) {
+                matrixResult[this.line][j] = matrixA[this.line][j] + matrixB[this.line][j];
+            }
+            return null;
+        }
+    }
+    class MatrixMultiplicationCallable implements Callable<Void> {
+        int line;
+
+        MatrixMultiplicationCallable(int _line) {
+            this.line = _line;
+        }
+
+        public Void call() {
+            for (int j = 0; j < MAX_COLUMNS; j++) {
+                for (int k = 0; k < MAX_COLUMNS; k++) {
+                    matrixResult[this.line][j] += (matrixResult[this.line][k] * matrixResult[k][j]);
+                }
+            }
+            return null;
+        }
+    }
 
     void MatrixAdditionMultiThreaded(boolean memzeroMatrix) {
+
+
         System.out.println("Running matrix addition multi threaded");
 
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
@@ -127,6 +162,7 @@ public class MatrixOperations {
         }
         measureElapsedTime(TIME_ELAPSED_STATE.END_MEASURE);
     }
+
     void MatrixMultiplicationSingleThreaded(boolean memzeroMatrix) {
         System.out.println("Running matrix multiplication single threaded");
 
@@ -144,6 +180,7 @@ public class MatrixOperations {
         }
         measureElapsedTime(TIME_ELAPSED_STATE.END_MEASURE);
     }
+
     void MatrixMultiplicationMultiThreaded(boolean memzeroMatrix) {
         System.out.println("Running matrix multiplication multi threaded");
 
@@ -159,6 +196,46 @@ public class MatrixOperations {
             executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.MICROSECONDS);
         } catch (InterruptedException e) {
             System.out.println(e);
+        }
+        measureElapsedTime(TIME_ELAPSED_STATE.END_MEASURE);
+    }
+
+    void MatrixAdditionParallelFutures() {
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+        List<Future<Void>> list = new ArrayList<>();
+
+        measureElapsedTime(TIME_ELAPSED_STATE.START_MEASURE);
+        for (int i = 0; i < MAX_LINES; i++) {
+            Future<Void> future = executor.submit(new MatrixAdditionCallable(i));
+            list.add(future);
+        }
+
+        for (Future<Void> future : list ) {
+            try {
+                future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+        measureElapsedTime(TIME_ELAPSED_STATE.END_MEASURE);
+    }
+
+    void MatrixMultiplicationParallelFutures() {
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+        List<Future<Void>> list = new ArrayList<>();
+
+        measureElapsedTime(TIME_ELAPSED_STATE.START_MEASURE);
+        for (int i = 0; i < MAX_LINES; i++) {
+            Future<Void> future = executor.submit(new MatrixMultiplicationCallable(i));
+            list.add(future);
+        }
+
+        for (Future<Void> future : list ) {
+            try {
+                future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
         }
         measureElapsedTime(TIME_ELAPSED_STATE.END_MEASURE);
     }
