@@ -157,6 +157,7 @@
     <ClInclude Include="btarray.h" />
     <ClInclude Include="codification_table.h" />
     <ClInclude Include="generic_exception.h" />
+    <ClInclude Include="program_internal_form.h" />
     <ClInclude Include="regex_id_ct.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="scanner.h" />
@@ -170,6 +171,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="program_internal_form.cpp" />
     <ClCompile Include="regex_id_ct.cpp" />
     <ClCompile Include="scanner.cpp" />
   </ItemGroup>

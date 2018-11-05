@@ -16,6 +16,8 @@ public:
     CodificationTable(std::string codificationFile);
     const CODIFICATION_TABLE& getCodificationTable();
     void printTable();
+    int getValue(std::string key);
+    std::string getKey(int val);
 
 private:
     void readCodificationTable(std::string file);

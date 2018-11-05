@@ -32,11 +32,11 @@ private:
     void _preOrderTraversal(int idx);
     void _postOrderTraversal(int idx);
 
+    T compNull;
 public:
 
     std::vector<T> btArray;
     int curReachedIdx;
-    T compNull;
 
     BST(const int Size = 2);
 
@@ -55,6 +55,8 @@ public:
     // Possible prints of the tree
     //
     void traversal(BT_TRAVERSAL traversalType);
+
+    bool contains(T data);
 };
 
 template<class T>
@@ -86,31 +88,31 @@ inline int BST<T>::insertNode(T data)
     {
         while (crtIdx >= this->btArray.size())
         {
-            cout << "Resizing array from " << this->btArray.size() <<
-                "elements, to " << this->btArray.size() * 2 << endl;
+      /*      cout << "Resizing array from " << this->btArray.size() <<
+                "elements, to " << this->btArray.size() * 2 << endl;*/
             this->_resizeBt();
         }
 
         if (this->btArray[crtIdx] == compNull)
         {
             this->btArray[crtIdx] = data;
-            cout << "Inserted data at btArray[" << crtIdx << "]\n";
+            //cout << "Inserted data at btArray[" << crtIdx << "]\n";
             break;
         }
         else if (this->btArray[crtIdx] > data)
         {
             crtIdx = crtIdx * 2 + 1;
-            cout << "Inserting [" << data << "] in left subtree\n";
+            //cout << "Inserting [" << data << "] in left subtree\n";
         }
         else if (this->btArray[crtIdx] < data)
         {
             crtIdx = crtIdx * 2 + 2;
-            cout << "Inserting [" << data << "] in right subtree\n";
+            //cout << "Inserting [" << data << "] in right subtree\n";
         }
         else if (this->btArray[crtIdx] == data)
         {
             // throw new exception
-            cout << "Same element found\n";
+            //cout << "Same element found\n";
             return crtIdx;
         }
     }
@@ -124,7 +126,11 @@ inline int BST<T>::insertNode(T data)
 template<class T>
 inline T BST<T>::searchKey(int key)
 {
-    if (this->btArray[key] == NULL)
+    if (
+        (this->btArray[key] == this->key) ||
+        (key > this->curReachedIdx) ||
+        (key >= this->btArray.size())
+        )
     {
         // throw new exception
     }
@@ -144,6 +150,37 @@ inline void BST<T>::traversal(BT_TRAVERSAL traversalType)
 }
 
 template<class T>
+inline bool BST<T>::contains(T data)
+{
+    int crtIdex = 0;
+
+    while (true)
+    {
+        if (
+            (crtIdex >= this->btArray.size()) ||
+            (this->btArray[crtIdex] == compNull) ||
+            (crtIdex > this->curReachedIdx)
+            )
+        {
+            return false;
+        }
+        if (this->btArray[crtIdex] == data)
+        {
+            return true;
+        }
+        if (this->btArray[crtIdex] < data)
+        {
+            // look right
+            crtIdex = 2 * crtIdex + 2;
+        }
+        else if (this->btArray[crtIdex] > data)
+        {
+            crtIdex = 2 * crtIdex + 1;
+        }
+    }
+}
+
+template<class T>
 inline void BST<T>::_inOrderTraversal(int idx)
 {
 
@@ -157,7 +194,7 @@ inline void BST<T>::_inOrderTraversal(int idx)
     }
 
     this->_inOrderTraversal(idx * 2 + 1);
-    cout << this->btArray[idx] << " ";
+    cout << this->btArray[idx] << "  |  " << idx << endl;
     this->_inOrderTraversal(idx * 2 + 2);
 }
 

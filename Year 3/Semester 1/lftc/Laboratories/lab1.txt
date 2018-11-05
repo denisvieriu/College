@@ -6,10 +6,10 @@
       c. Decimal digits (0-9);
   Lexic:
       a.Special symbols, representing:
-	 - operators + - * / < <= = >= % ==
-	 - separators [ ] { }  : ; space
+	 - operators + - * / < <= = >= %
+	 - separators [ ] { } ; space
 	 - reserved words:
-	 		char | const | int | printf | scanf | if | else | return | while | main | true | false
+	 		char | const | int | printf | scanf | if | else | return | while | main | true | false | struct | float | bool
       b.identifiers
 	   -a sequence of letters and  digits, such that the first charater is a letter; the rule is:
 	     identifier ::= 'letter' | 'letter'{letter}{diggit}
@@ -20,7 +20,7 @@
 				| "c" | "d" | "e" | "f" | "g" | "h" | "i"
 				| "j" | "k" | "l" | "m" | "n" | "o" | "p"
 				| "q" | "r" | "s" | "t" | "u" | "v" | "w"
-				| "x" | "y" | "z" ;	
+				| "x" | "y" | "z" 
 	     digit 		::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
 		 char 		::= 'letter' | 'digit' | '_'
       c.constants (const)
@@ -30,17 +30,16 @@
 	     char = 'letter' | 'digit' | '_'
 	 3.bool
 	 	 bool  = 'true' | 'false'
-	 3.string
-	      string = '"' , { 'char' - '""' } , '"'
 
  2.2 Syntax:
 	The words - predefined tokens are specified between " and ":	
 a) Sintactical rules:
 		program  		::= 	type1 "main()" cmpdstmt
+		struct 			::= 	cmpdstmt IDENTIFIER ";"
 		type1	 		::= 	"int" | "bool" | "char" | "float" 
 		cmpdstmt 		::= 	"{" stmtlist "}"
 		stmtlist 		::= 	stmt | stmt stmt_list 
-		stmt	 		::= 	simplestmt | returnstmt | whilestmt | ifstmt | iostmt
+		stmt	 		::= 	simplestmt | returnstmt | whilestmt | ifstmt | iostmt | struct
 		simplestmt 		::= 	declaration | assignment
 		declaration 	::= 	type1 IDENTIFIER ";"
 		assignment 		::= 	type1 IDENTIFIER "=" expression ";" | IDENTIFIER "=" expression ";"
@@ -50,43 +49,48 @@ a) Sintactical rules:
 		condition		::= 	expr RELATION expr
 		ifstmt 			::= 	"if" "(" condition ")" cmpdstmt | "if" "(" condition ")" cmpdstmt "else" cmpdstmt
 		iostmt			::= 	writestmt | readstmt
-		writestmt 		::= 	printf "(" IDENTIFIER ");"
-		readstmt		::= 	scanf "(" IDENTIFIER ")"; 
+		writestmt 		::= 	printf "(" IDENTIFIER ") ";"
+		readstmt		::= 	scanf "(" IDENTIFIER ")" ";" 
 		float 			::= 	'const' "." 'const'
 
 	Lexical rules:
 		IDENTIFIER 		::= 	'letter' | 'letter'{'letter'}{'digit'}
-		letter	 		::= 	"A" | "B" | . ..| "Z" | "a" | "b" | ... | "z"
+		letter	 		::= 	"A" | "B" | . ..| "Z" | "a" | "b" | ... | "z" 
 		digit 			::= 	"0" | "1" | ... | "9"
-		char 	 		::=	 	letter | digit | '_' 
+		char 	 		::=	 	letter | digit | "_"
 		RELATION 		::= 	"<" | "<=" | "==" | ">=" | ">"
 		OPERARTION 		::= 	"+" | "-" | "*" | "/" | "%"  
 		
 		
 Symbol Table: 
-		identifier				0
-		constant				1
-		main					2
-		int						3
-		char					4
-		float					5
-		bool					6
-		(						7
-		)						8
-		while					9
-		if						10
-		else					11
-		scanf					12
-		printf					13
-		+						14
-		*						15
-		/						16
-		%						17
-		=						18
-		>						19
-		<						20
-		;						21
-		!						22
+	identifier				0
+	constant				1
+	main					2
+	int						3
+	char					4
+	float					5
+	bool					6
+	(						7
+	)						8
+	while					9
+	if						10
+	else					11
+	scanf					12
+	printf					13
+	+						14
+	*						15
+	/						16
+	%						17
+	=						18
+	>						19
+	<						20
+	;						21
+	{						22
+	}						23
+	struct					24
+	,						25
+	return					26
+
 		
 		
 		

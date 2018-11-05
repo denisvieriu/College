@@ -41,6 +41,24 @@ void CodificationTable::readCodificationTable(std::string file)
     infile.close();
 }
 
+int CodificationTable::getValue(std::string key)
+{
+    // [to do] - checks if key exists
+    return this->codificationMap[key];
+}
+
+std::string CodificationTable::getKey(int val)
+{
+    for (auto kv : this->codificationMap)
+    {
+        if (kv.second == val)
+        {
+            return kv.first;
+        }
+    }
+    return nullptr;
+}
+
 const CODIFICATION_TABLE& CodificationTable::getCodificationTable()
 {
     return this->codificationMap;
