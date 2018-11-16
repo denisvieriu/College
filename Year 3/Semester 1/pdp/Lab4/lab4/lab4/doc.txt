@@ -1,0 +1,14 @@
+System Manufacturer	Dell Inc.
+System Model	Latitude 5580
+Processor	Intel(R) Core(TM) i7-7600U CPU @ 2.80GHz, 2901 Mhz, 2 Core(s), 4 Logical Processor(s)
+RAM         16GB DDR4
+
+Matrix multiplication of 3 matrixes using a producer/consumer queue:
+    - there can be as many producers and consumers, usually divided by 2
+    - the CONSUMER is waiting if the queue is empty (until the producer signals him, with a condition variable),
+      otherwise it gets an element from the queue and consumes it
+    - the element from the queue is a line, and the result from R1 = A * B, and now it will calculate R2 = R1 * C 
+
+    - the PRODUCER performs matrix multiplication between matrix A and B, and stores the result in R1
+    - if the number of lines processed reaches the end of the matrixes, the producers is signaled to stop
+    - for every line calculated, we push its index in the queue and notify the waiting producers

@@ -1,0 +1,31 @@
+﻿Goal
+The goal of this lab is to use C# TPL futures and continuations in a more complex scenario, in conjunction with waiting for external events.
+
+Requirement
+Write a program that is capable of simultaneously downloading several files through HTTP. Use directly the BeginConnect()/EndConnect(), BeginSend()/EndSend() and BeginReceive()/EndReceive() Socket functions, and write a simple parser for the HTTP protocol (it should be able only to get the header lines and to understand the Content-lenght: header line).
+
+Try three implementations:
+
+Directly implement the parser on the callbacks (event-driven);
+Wrap the connect/send/receive operations in tasks, with the callback setting the result of the task;
+Like the previous, but also use the async/await mechanism.
+
+
+Implementation:
+1.  Directly implement the parser on the callbacks (event-driven)
+    ->  First implementation uses 3 different MutualResetEvents for Connect, Send and Receivce. Every 3 of this function has a callback 
+        called when the function finished its operations, and the callback sets the mutualresetevent, so that the main thread waiting for the MutualResetEvents
+        can go further from the waiting task
+    ->  The client Sends a http get to the server, receiving the headers (with the Content-Length) and the body
+    ->  The client keeps receiving data from the server until all the body was read (we know all the body was read when we read Content-Length bytes from the body (this should be the whole body))
+
+2.  Wrap the connect/send/receive operations in tasks, with the callback setting the result of the task;
+    -> The Send/Receive/Callback are wrapped now to be an Task async
+    -> All of them use now Task.Factory.FromAsync to retrieve the data asynchronsly, awaiting every time for the operation to be performed
+    -> No MutualResetEvents are needed anymore, since the function wrapped in Tasks can now be awaited from the main callee thread
+    -> For the receiving, there is no callback anymore to start reading data, we use Task.Factory.FromAsync to read N bytes from the body untill all Content-Length is 0 
+
+3. Like the previous, but also use the async/await mechanism
+    -> The tasks are now chained
+    -> Connect is now chained to the Send, and Send is now chained to receive
+    -> The chain has the following structure: Connect->ContinueWith(Send->ContinueWith(Receive))
