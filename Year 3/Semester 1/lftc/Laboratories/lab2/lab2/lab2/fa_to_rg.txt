@@ -1,0 +1,8 @@
+N = {p, q}
+E = {1, a}
+S = p
+Production set:
+p->aq
+q->1q
+q->aq
+p->e

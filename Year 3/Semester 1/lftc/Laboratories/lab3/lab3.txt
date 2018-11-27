@@ -1,0 +1,17 @@
+DE RESCRIS
+ FARA SPECIFICAT LEXICAL RULES 
+
+IDENTIFIER - TERMINAL
+De inlocuit reserved words, separators etc... : ; , (, ), {, }, cu codurile din PIF
+
+<program> ::= <type1> code_in_pif(main) code_in_pif('(') code_in_pif(')') <cmpdstmt>
+<struct> ::= <cmpdstmt> IDENTIFIER
+<type1> ::= code_in_pif("int") | code_in_pif("bool") | code_in_pif("char") | code_in_pif("float")
+<cmpdstmt> ::
+
+....  
+
+
+LAB4: 4 saptamani timp de lucru
+1 c (lr0)
+2 c (derivations strings)

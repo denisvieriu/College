@@ -1,0 +1,4 @@
+
+LAB4: 4 saptamani timp de lucru
+1 c (lr0)
+2 c (derivations strings)

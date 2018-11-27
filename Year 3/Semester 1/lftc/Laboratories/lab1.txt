@@ -38,7 +38,7 @@ a) Sintactical rules:
 		struct 			::= 	cmpdstmt IDENTIFIER ";"
 		type1	 		::= 	"int" | "bool" | "char" | "float" 
 		cmpdstmt 		::= 	"{" stmtlist "}"
-		stmtlist 		::= 	stmt | stmt stmt_list 
+		stmtlist 		::= 	stmt | stmt stmtlist 
 		stmt	 		::= 	simplestmt | returnstmt | whilestmt | ifstmt | iostmt | struct
 		simplestmt 		::= 	declaration | assignment
 		declaration 	::= 	type1 IDENTIFIER ";"
@@ -46,7 +46,7 @@ a) Sintactical rules:
 		expression 		::= 	IDENTIFIER | IDENTIFIER OPERATION 'const' | 'const' OPERATION 'const' | IDENTIFIER OPERATION IDENTIFIER
 		returnstmt 		::= 	"return" expression ";"
 		whilestmt 		::= 	"while" "(" condition ")" cmpdstmt
-		condition		::= 	expr RELATION expr
+		condition		::= 	expression RELATION expression
 		ifstmt 			::= 	"if" "(" condition ")" cmpdstmt | "if" "(" condition ")" cmpdstmt "else" cmpdstmt
 		iostmt			::= 	writestmt | readstmt
 		writestmt 		::= 	printf "(" IDENTIFIER ") ";"

@@ -1,0 +1,12 @@
+Q = {S, A, B} U {K}, where K is a final state
+E = {a, b, c}
+q0 = S
+Transition functions:
+sigma(S, a) = A
+sigma(S, b) = B
+sigma(A, a) = A
+sigma(A, b) = B
+sigma(B, a) = K
+sigma(B, b) = K
+sigma(B, c) = K
+F = {K, S}
