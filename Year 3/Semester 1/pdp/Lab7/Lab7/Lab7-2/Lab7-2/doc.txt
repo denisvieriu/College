@@ -1,0 +1,15 @@
+Additition of N big numbers using a queue
+
+Processor	Intel(R) Core(TM) i5-6200U CPU @ 2.30GHz, 2401 Mhz, 2 Core(s), 4 Logical Processor(s)
+
+Algorithm:
+Signature of the main algorithm:
+DivideAndConquer(int StartingNode, int CountOfNumbers, ProducerConsumerQueue &ResultQueue);
+
+The algorithm follows the divide et impera algorithm logic. It gets as input an vector of strings, where a string represents a number, and tries to calculate
+the sum as: sum = f(left(a), q1) + f(right(b), q2), and right after it a consumer starts. Function f adds to queue a number whenever left==right.
+
+The consumer tries to dequeue an digit from both q1 and q2. If the producer didn't manage to add all the digits to the queue, the dequeue operation
+will wait in case of empty queue, or it stops dequeue elements from the respective queue if the whole number was processed digit by digit.
+At the moment both queues are empty and all digits within them are processed we can return to the calle thread with the ResultQueue = NumberFrom(q1) + NumberFrom(q2), represented as string
+

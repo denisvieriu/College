@@ -1,0 +1,9 @@
+Processor	Intel(R) Core(TM) i5-6200U CPU @ 2.30GHz, 2401 Mhz, 2 Core(s), 4 Logical Processor(s)
+
+Finding a hamiltonian cycle using parallel backtracking:
+	- Receives as input the a node
+	- A vector of solutions and its bitmap used to remember which node has been visited so far
+
+	We start looking for other nodes from node 0, since we can find a hamiltonian cycle
+	from any random node chosen. Each thread tries to visit the neighbours the node of the Node received as parameter,
+	one thread from the first neighbour and goes 2 by 2, 
