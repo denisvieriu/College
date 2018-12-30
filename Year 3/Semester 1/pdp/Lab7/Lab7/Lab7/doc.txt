@@ -1,0 +1,16 @@
+OS Name	Microsoft Windows 10 Pro
+System Model	Latitude 5580
+System Type	x64-based PC
+System SKU	07A8
+Processor	Intel(R) Core(TM) i7-7600U CPU @ 2.80GHz, 2901 Mhz, 2 Core(s), 4 Logical Processor(s)
+BIOS Version/Date	Dell Inc. 1.12.0, 8/17/2018
+
+Parallel algorithm of prefix sum using 4 logical processors
+    - having a precomputed matrix(log n) with the addition of [k - 1][i + 2 ^ j], it's easy to calculate every element
+      from the first line (our array): gPrecalculatedMatrix[0][i] = a. For each line, log n additions are performed between 
+      the element above and a power of 2
+
+    - each thread does k elements 0 <= k <= n (where k = k + NoOfLogicalProcessors)
+
+    - now we use the precomputed matrix to calculate final parallel result (having a 2^j <= i + 1), and j represents
+      the line of the precomputed matrix in this case

@@ -1,0 +1,15 @@
+Processor	Intel(R) Core(TM) i7-7600U CPU @ 2.80GHz, 2901 Mhz, 2 Core(s), 4 Logical Processor(s)
+
+Karatsuba using MPI
+
+Masters sends a chunk from A to workers and whole vector B. 
+Will perform karatsuba between (A[i], A[i+1], A[i+2],..., A[i + k]) * (B[0], B[1], ... , B[k])
+
+Workers will receive a part and will calculate the chunk received from A * B using karatsuba. It will store the result in a vector of res.
+It will send back to the master the vector it calculated (res).
+
+Masters receives the results back from workers, and adds the values received to a vector of final results.
+
+
+
+

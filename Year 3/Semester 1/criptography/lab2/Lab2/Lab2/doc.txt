@@ -1,0 +1,25 @@
+Vieriu Denis Gabriel | grupa 935
+
+Hardware:
+System Model	Latitude 5580
+System Type	    x64-based PC
+Processor	    Intel(R) Core(TM) i7-7600U CPU @ 2.80GHz, 2901 Mhz, 2 Core(s), 4 Logical Processor(s)
+
+
+Congruences Modulo n
+
+1) 3 numbers are read from the standard input: a, b, n; needed for the equation:
+  ax = b (mod n)
+
+2) if gcd(a, n) == 1, then we have a solution of the form:
+   Xg = a^(-1) * b (mod n)
+
+3) otherwise if gcd(a, n) = d > 1, then we check if b % d == 0 (d must be a divisor of b)
+   - if d is not a divisor of b, then we stop the execution of the algorithm, 
+     meaning that we haven't found any solution
+   - if d is a divisor of b, then we have a solution of the form:
+     (a/d) * x = (b/d) * (mod n/d), and Xg = a^(-1) * b (mod n)
+     
+     - we calculate a^(-1) mod(n) using the extended euclidian algorithm
+
+  

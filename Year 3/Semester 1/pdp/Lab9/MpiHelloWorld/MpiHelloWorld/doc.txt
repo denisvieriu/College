@@ -1,0 +1,9 @@
+Processor	Intel(R) Core(TM) i7-7600U CPU @ 2.80GHz, 2901 Mhz, 2 Core(s), 4 Logical Processor(s)
+
+Polynomial multiplication using MPI
+Master sends the whole array A and B to the workers
+
+The workers receive the array and start doing polynomial multiplication, starting to calculate from coefficient = worker_id, 
+skipping T elements every time until a new one is pick, operation performed until the end of the array.
+
+The worker sends back the result to the master, and the master adds the results to a final array
