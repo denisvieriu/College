@@ -34,7 +34,6 @@ int kernel[3][3] = { 1, 2, 1,
                    1, 2, 1 };
 
 
-
 int
 accessPixel(
     unsigned char * arr,
@@ -93,28 +92,45 @@ GaussianBlur2D(
     )
 {
     cv::Mat3b img = cv::imread(FileName, cv::IMREAD_COLOR);
+
+	uchar *buffer = (uchar*)malloc(img.rows * img.cols * 3);
+	memcpy(buffer, img.data, img.rows * img.cols * 3);
     if (!img.data) {
         printf("Failed to read image\n");
         exit(2);
     }
 
-    cv::Mat3b out = img.clone();
+	cv::Mat3b out = img.clone();
+	out.data = buffer;
 
-    printf("Creating %d threads...\n", NoThreads);
-    vector <std::thread> threadV;
 
-    int totalThreads = min(NoThreads, img.rows);
-    
-    for (int t = 0; t < totalThreads; t++)
-    {
-        threadV.emplace_back(PixelWorker, img.data, out.data, img.cols, img.rows, t, NoThreads);
-    }
+	//for (int i = 0; i < out.rows; i++)
+	//{
+	//	for (int j = 0; j < out.cols; j++)
+	//	{
+	//		Vec3b px = out.at<Vec3b>(i, j); 
+	//		//int gray = (px[0] + px[1] + px[2]) / 3;
+	//		cout << (int)px[0] << " " << (int)px[1] << " " << (int)px[2] << endl;
+	//	}
+	//}
+	//printf("Creating %d threads...\n", NoThreads);
+	vector <std::thread> threadV;
 
-    for (auto & t : threadV) {
-        t.join();
-    }
+	int totalThreads = min(NoThreads, img.rows);
+
+	for (int t = 0; t < totalThreads; t++)
+	{
+		threadV.emplace_back(PixelWorker, img.data, out.data, img.cols, img.rows, t, NoThreads);
+	}
+
+	for (auto & t : threadV) {
+		t.join();
+	}
 
     printf("Threads finished work\n");
+
+	cv::imwrite("output.jpg", out);
+
 
     cv::imshow("out", out);
     cv::imshow("img", img);
