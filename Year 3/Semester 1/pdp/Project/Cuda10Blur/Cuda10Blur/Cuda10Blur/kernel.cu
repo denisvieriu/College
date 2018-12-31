@@ -1,40 +1,22 @@
 
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
-
 #include <stdio.h>
-
 #include <iostream>
 #include <math.h>
 #include <string>
-
 #include "process_image.h"
-
-
-// Kernel function to add the elements of two arrays
-__global__
-void add(int n, float *x, float *y)
-{
-	int index = blockDim.x * blockIdx.x + threadIdx.x;
-	int stride = blockDim.x * gridDim.x;
-
-	printf("%d\n", index);
-	//std::cout << std::endl;
-
-	for (int i = index; i < n; i += stride)
-		y[i] = x[i] + y[i];
-}
 
 
 __device__
 int
-accessPixel(
-	unsigned char * arr,
-	int col,
-	int row,
-	int k,
-	int width,
-	int height
+AccessPixel(
+	_In_ uchar* Arr,
+	_In_ int Col,
+	_In_ int Row,
+	_In_ int K,
+	_In_ int Width,
+	_In_ int Height
 )
 {
 
@@ -49,10 +31,9 @@ accessPixel(
 	{
 		for (int i = -1; i <= 1; i++)
 		{
-			if ((row + j) >= 0 && (row + j) < height && (col + i) >= 0 && (col + i) < width)
+			if ((Row + j) >= 0 && (Row + j) < Height && (Col + i) >= 0 && (Col + i) < Width)
 			{
-				int color = arr[(row + j) * 3 * width + (col + i) * 3 + k];
-				//printf("%d\n", color);
+				int color = Arr[(Row + j) * 3 * Width + (Col + i) * 3 + K];
 				sum += color * kernel[i + 1][j + 1];
 				sumKernel += kernel[i + 1][j + 1];
 			}
@@ -79,14 +60,13 @@ void CudaPixelWorker(
 	int startIndex = blockDim.x * blockIdx.x + threadIdx.x;
 	int stride = blockDim.x * gridDim.x;
 
-
 	for (int row = startIndex; row < Height; row += stride)
 	{
 		for (int col = 0; col < Width; col++)
 		{
 			for (int k = 0; k < 3; k++)
 			{
-				Res[3 * row * Width + 3 * col + k] = accessPixel(Img, col, row, k, Width, Height);
+				Res[3 * row * Width + 3 * col + k] = AccessPixel(Img, col, row, k, Width, Height);
 			}
 		}
 	}
@@ -117,6 +97,7 @@ GaussianBlur2D(
 	}
 
 	out.data = buffer2;
+
 	cudaMemcpy(buffer, img.data, img.rows * img.cols * 3, cudaMemcpyHostToDevice);
 	img.data = buffer;
 
@@ -124,9 +105,6 @@ GaussianBlur2D(
 	int totalBlocks = (img.rows + threadsPerBlock - 1) / threadsPerBlock;
 	CudaPixelWorker<<<totalBlocks, threadsPerBlock>>>(img.data, out.data, img.cols, img.rows);
 	cudaDeviceSynchronize();
-	std::cout << "Copying back out.data to img.data" << std::endl;
-
-	//memcpy(img.data, out.data, img.rows * img.cols * 3);
 
 	std::cout << "Trying to save image to output file" << std::endl;
 	cv::imwrite("output.bmp", out);
@@ -134,7 +112,6 @@ GaussianBlur2D(
 	cudaFree(buffer);
 	cudaFree(buffer2);
 }
-
 
 int main(int argc, char** argv)
 {
@@ -145,39 +122,6 @@ int main(int argc, char** argv)
 	std::cout << "Filename: " << fileName << std::endl;
 
 	GaussianBlur2D(fileName);
-
-	//int N = 1 << 20;
-	//float *x, *y;
-
-	//// Allocate Unified Memory – accessible from CPU or GPU
-	//cudaMallocManaged(&x, N * sizeof(float));
-	//cudaMallocManaged(&y, N * sizeof(float));
-
-	//// initialize x and y arrays on the host
-	//for (int i = 0; i < N; i++) {
-	//	x[i] = 1.0f;
-	//	y[i] = 2.0f;
-	//}
-
-	//// Run kernel on 1M elements on the GPU
-
-	//int noThreadsPerBlock = 256;
-	//int totalBlocks = (N + noThreadsPerBlock - 1) / noThreadsPerBlock;
-
-	//add<<<totalBlocks, noThreadsPerBlock>>> (N, x, y);
-
-	//// Wait for GPU to finish before accessing on host
-	//cudaDeviceSynchronize();
-
-	//// Check for errors (all values should be 3.0f)
-	//float maxError = 0.0f;
-	//for (int i = 0; i < N; i++)
-	//	maxError = fmax(maxError, fabs(y[i] - 3.0f));
-	//std::cout << "Max error: " << maxError << std::endl;
-
-	//// Free memory
-	//cudaFree(x);
-	//cudaFree(y);
 
 	return 0;
 }
