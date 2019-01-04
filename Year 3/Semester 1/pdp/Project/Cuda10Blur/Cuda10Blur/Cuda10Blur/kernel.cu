@@ -7,7 +7,6 @@
 #include <string>
 #include "process_image.h"
 
-
 __device__
 int
 AccessPixel(
@@ -98,7 +97,7 @@ GaussianBlur2D(
 
 	out.data = buffer2;
 
-	cudaMemcpy(buffer, img.data, img.rows * img.cols * 3, cudaMemcpyHostToDevice);
+	cudaMemcpyAsync(buffer, img.data, img.rows * img.cols * 3, cudaMemcpyHostToDevice);
 	img.data = buffer;
 
 	int threadsPerBlock = 256;

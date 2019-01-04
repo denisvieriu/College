@@ -12,10 +12,12 @@ public class Parser {
 //        res = Grammar.clossure(initial);
 //        closure = Grammar.realGoto(res, "c");
 
-        Grammar.createCanonicalSet().entries().forEach(k -> {
-            System.out.println("Key: " + k.getKey() + ", Value: " + k.getValue());
-        });
+//        Grammar.createCanonicalSet().entries().forEach(k -> {
+//            System.out.println("Key: " + k.getKey() + ", Value: " + k.getValue());
+//        });
 
+        Grammar.buildTable();
+   //     Grammar.lr0();
 //        closure.entries().forEach(System.out::println);
     }
 
