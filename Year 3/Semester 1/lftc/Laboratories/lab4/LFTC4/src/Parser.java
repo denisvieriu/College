@@ -17,7 +17,7 @@ public class Parser {
 //        });
 
         Grammar.buildTable();
-   //     Grammar.lr0();
+        Grammar.lr0();
 //        closure.entries().forEach(System.out::println);
     }
 

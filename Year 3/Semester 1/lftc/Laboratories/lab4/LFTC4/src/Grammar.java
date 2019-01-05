@@ -5,6 +5,7 @@ import com.google.common.collect.Multimap;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.util.Pair;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Grammar {
@@ -100,6 +101,8 @@ public class Grammar {
         //buildTable();
 
         gotoMap = new HashMap<>();
+        boolean[] stateVisited = new boolean[100];
+        Arrays.fill(stateVisited, Boolean.FALSE);
 
         Multimap<String, String> startingProduction = HashMultimap.create();
         Multimap<String, String> s0;
@@ -111,7 +114,6 @@ public class Grammar {
 
         s0 = clossure(startingProduction);
         result.put("s0", s0);
-
         int i = 0;
         boolean cModified = false;
         do {
@@ -119,34 +121,41 @@ public class Grammar {
             Multimap<String, Multimap<String, String>> temp = HashMultimap.create();
             for (Map.Entry<String, Multimap<String, String>> keyValue : result.entries()) {
 
-                List<Pair<String, String>> l = new ArrayList<>();
+                List<Pair<String, String>> gotoMapHelper = new ArrayList<>();
 
                 for (String X : termianlsAndNontermianls) {
 
-                    Multimap<String, String> s = realGoto(keyValue.getValue(), X); // A -> BS. ; A-> B.S
+                    Multimap<String, String> s = realGoto(keyValue.getValue(), X);
                     if (!s.isEmpty() && !result.containsValue(s)) {
                         i++;
                         temp.put("s" + i, s);
-                        l.add(new Pair<>(X, "" + i));
-//                        System.out.println("Goto(" + keyValue.getKey() + " " + l);
-
+                        gotoMapHelper.add(new Pair<>(X, "" + i));
                         cModified = true;
+                    } else if (!s.isEmpty() && result.containsValue(s) && !stateVisited[Integer.parseInt(keyValue.getKey().substring(1))]) {
+                        String keyTmp = null;
+                        for (Map.Entry<String, Multimap<String, String>> keyValueTemp : result.entries()) {
+                            if (keyValueTemp.getValue().equals(s)) {
+                                keyTmp = keyValueTemp.getKey();
+                            }
+                        }
 
-                        //table.put(new Pair<>("s" + i, X), keyValue.getKey());
+                        if (keyTmp != null) {
+                            int keyInt = Integer.parseInt(keyTmp.substring(1));
+                            gotoMapHelper.add(new Pair<>(X, "" + keyInt));
+                        }
                     }
-                    System.out.println(">> " + s);
-
                 }
-                //System.out.println(l.size());
-                if (!gotoMap.containsKey(keyValue.getKey()))
-                    gotoMap.put(keyValue.getKey(), l);
+                if (!gotoMap.containsKey(keyValue.getKey())) {
+                    gotoMap.put(keyValue.getKey(), gotoMapHelper);
+                }
+
+                stateVisited[Integer.parseInt(keyValue.getKey().substring(1))] = true;
             }
             result.putAll(temp);
 
 
         } while (cModified);
 
-        System.out.println(gotoMap);
         for (Map.Entry<String, List<Pair<String, String>>> keyValue : gotoMap.entrySet()) {
             List<Pair<String, String>> value = keyValue.getValue();
 
@@ -192,9 +201,12 @@ public class Grammar {
 
     public static void buildTable() {
         Multimap<String, Multimap<String, String>> canSet = Grammar.createCanonicalSet();
-        System.out.println("CAN SET:");
+
+        System.out.println();
+        System.out.println("Canonical set: ");
         System.out.println(canSet);
-        System.out.println("_________________________");
+        System.out.println();
+
         List<String> termianlsAndNontermianls = new ArrayList<>(terminals);
         termianlsAndNontermianls.addAll(nonTerminals);
         termianlsAndNontermianls.add("action");
@@ -207,8 +219,6 @@ public class Grammar {
             String rule = determineRule(canSet.get(state));
             switch (rule) {
                 case "shift": {
-                    System.out.println(state + " shift");
-
                     List<Pair<String, String>> values = gotoMap.get(state);
                     table.put(new Pair<>(state, "action"), "shift");
                     for (Pair<String, String> elem : values) {
@@ -218,7 +228,6 @@ public class Grammar {
                     break;
                 }
                 case "reduce": {
-                    System.out.println(state + " reduce");
                     Multimap<String, String> res = canSet.get(state).iterator().next();
                     String key = (String) res.keySet().toArray()[0];
                     String value = res.get(key).iterator().next();
@@ -236,7 +245,6 @@ public class Grammar {
                 }
                 case "accept": {
                     table.put(new Pair<>(state, "action"), "accept");
-                    System.out.println(state + " accept");
                     break;
                 }
                 default: {
@@ -265,21 +273,45 @@ public class Grammar {
 
     static void lr0() {
         String action;
+        int idxReduce = ("reduce").length();
 
         table.put(new Pair<>("s" + 3, "b"), "3");
         table.put(new Pair<>("s" + 3, "c"), "4");
         do {
             //abbc
 
+            String tempAcc = "";
+            System.out.println();
             System.out.println("Working stack: " + workingStack);
             System.out.println("Input queue: " + inputQueue);
 
-            String headInputQueue = inputQueue.poll();
+            System.out.print("Output stack: [" /*+ outputStack.stream().reduce(tempAcc, (a, b) -> tempAcc + a + b  )*/);
+            for (int i = outputStack.size() - 1; i >= 0; i--) {
+                if (i != 0)
+                    System.out.print(outputStack.elementAt(i) + ", ");
+                else
+                    System.out.print(outputStack.elementAt(i));
+            }
+            System.out.print("]");
+            System.out.println();
+
+            String headInputQueue;
+            if (inputQueue.size() != 1)
+                headInputQueue = inputQueue.poll();
+            else
+                headInputQueue = inputQueue.peek();
+
             String lastElWorkingSt = workingStack.lastElement();
 
             action = table.get(new Pair<>("s" + lastElWorkingSt, "action"));
+            System.out.println("Action: " + action);
 
-            System.out.println("(s" + lastElWorkingSt + ", " + headInputQueue + ") = " + action);
+            int reduceNo = -1;
+            if (action.contains("reduce")) {
+                reduceNo = Integer.parseInt("" + action.substring(idxReduce));
+                action = action.substring(0, action.length() - 1);
+            }
+
             switch (action) {
                 case "shift": {
                     String coeff = table.get(new Pair<>("s" + lastElWorkingSt, headInputQueue));
@@ -288,6 +320,47 @@ public class Grammar {
                     break;
                 }
                 case "reduce": {
+                    outputStack.push("" + reduceNo);
+
+                    for (Map.Entry<String, Pair<Integer, String>> keyValue : productions.entries()) {
+                        Pair<Integer, String> prodRHS = keyValue.getValue();
+                        int idxProd = prodRHS.getKey();
+
+                        if (idxProd == reduceNo) {
+                            //System.out.println("ReduceNo: " + reduceNo);
+
+                            String parserResult = "";
+                            while (!prodRHS.getValue().equals(parserResult)) {
+                                workingStack.pop();
+                                String var = workingStack.pop();
+                                parserResult = var + parserResult;
+
+                                if (!prodRHS.getValue().contains(var)) {
+                                    throw new RuntimeException("Can't do reduce");
+                                }
+                            }
+
+                            String gotoCoeff = workingStack.peek();
+
+                            boolean stopFor = false;
+                            for (Map.Entry<String, List<Pair<String, String>>> keyValueGotoMap : gotoMap.entrySet()) {
+                                List<Pair<String, String>> value = keyValueGotoMap.getValue();
+
+                                if (stopFor)
+                                    break;
+
+                                for (Pair<String, String> pair : value) {
+                                    if (keyValueGotoMap.getKey().equals("s" + gotoCoeff) && keyValue.getKey().equals(pair.getKey())) {
+                                        String stateCoeff = pair.getValue();
+                                        workingStack.push(keyValue.getKey());
+                                        workingStack.push(stateCoeff);
+                                        stopFor = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
 
                     break;
                 }
@@ -300,6 +373,18 @@ public class Grammar {
             }
         } while (!action.equals("accept"));
 
-        System.out.println(workingStack);
+        System.out.println();
+        System.out.print("Output stack: [" /*+ outputStack.stream().reduce(tempAcc, (a, b) -> tempAcc + a + b  )*/);
+        for (int i = outputStack.size() - 1; i >= 0; i--) {
+            if (i != 0)
+                System.out.print(outputStack.elementAt(i) + ", ");
+            else
+                System.out.print(outputStack.elementAt(i));
+        }
+        System.out.print("]");
+        System.out.println();
+
+
+        System.out.println("Working stack: " + workingStack);
     }
 }
