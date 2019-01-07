@@ -5,12 +5,17 @@ import com.google.common.collect.Multimap;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.util.Pair;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Grammar {
     private static List<String> nonTerminals;
     private static List<String> terminals;
+    // ABC -> CDE RSE
     private static Multimap<String, Pair<Integer, String>> productions;
     private static String startingSymbol;
     private static Map<Pair<String, String>, String> table = new HashMap<>();
@@ -19,28 +24,85 @@ public class Grammar {
     private static Stack<String> workingStack, outputStack, actionStack;
     private static Queue<String> inputQueue;
 
+    private static String StartSymbCFG = "Z";
+
+//    Grammar(String _fileName) {
+//        ParseGrammar(_fileName);
+//    }
+
+    static void parseGrammar(String fileName) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            nonTerminals = Stream.of(br.readLine().trim().split("=")[1].split(",")).collect(Collectors.toList());
+            terminals = Stream.of(br.readLine().trim().split("=")[1].split(",")).collect(Collectors.toList());
+            startingSymbol = br.readLine().trim().split("=")[1];
+
+            String line;
+            int idxProd = 0;
+            while ((line = br.readLine()) != null) {
+                String[] elems = line.split("->");
+
+                productions.put(elems[0], new Pair<>(idxProd, elems[1]));
+                idxProd++;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     static {
-        nonTerminals = Arrays.asList("S", "A");
-        terminals = Arrays.asList("a", "b", "c");
-        productions = HashMultimap.create();
-        productions.put("K", new Pair<>(0, "S"));
-        productions.put("S", new Pair<>(1, "aA"));
-        productions.put("A", new Pair<>(2, "bA"));
-        productions.put("A", new Pair<>(3, "c"));
+//        nonTerminals = Arrays.asList("S", "A");
+//        terminals = Arrays.asList("a", "b", "c");
+//        productions = HashMultimap.create();
+//        productions.put("K", new Pair<>(0, "S"));
+//        productions.put("S", new Pair<>(1, "aA"));
+//        productions.put("A", new Pair<>(2, "bA"));
+//        productions.put("A", new Pair<>(3, "c"));
+//
+//        startingSymbol = "S";
 
-        startingSymbol = "S";
+        nonTerminals = new ArrayList<>();
+        terminals = new ArrayList<>();
+        productions = HashMultimap.create();
+
+        parseGrammar("./src/grammar2.txt");
+        System.out.println("N = " + nonTerminals);
+        System.out.println("E = " + terminals);
+        System.out.println(productions);
+        System.out.println(startingSymbol);
+        System.out.println("-----------------------");
 
         inputQueue = new ArrayDeque<>();
         workingStack = new Stack<>();
         outputStack = new Stack<>();
         actionStack = new Stack<>();
 
-        inputQueue.add("a");
-        inputQueue.add("b");
-        inputQueue.add("b");
-        inputQueue.add("c");
+//        inputQueue.add("a");
+//        inputQueue.add("b");
+//        inputQueue.add("b");
+//        inputQueue.add("c");
+//        inputQueue.add("$");
+
+        // QnmMmUqMR
+//        // QnmMR
+        inputQueue.add("Q");
+        inputQueue.add("n");
+        inputQueue.add("m");
+        inputQueue.add("M");
+        inputQueue.add("m");
+        inputQueue.add("U");
+        inputQueue.add("q");
+        inputQueue.add("M");
+        inputQueue.add("R");
         inputQueue.add("$");
+
+        //{iI;}
+//        inputQueue.add("{");
+//        inputQueue.add("i");
+//        inputQueue.add("I");
+//        inputQueue.add(";");
+//        inputQueue.add("}");
+//        inputQueue.add("$");
 
         workingStack.add("$");
         workingStack.add("0");
@@ -52,6 +114,7 @@ public class Grammar {
         result.putAll(input);
         do {
             addedVal = false;
+            Multimap<String, String> temp = HashMultimap.create();
             for (String rhs : result.values()) {
                 int dotIdx = rhs.indexOf('.');
                 if (dotIdx < rhs.length() - 1) {
@@ -67,7 +130,7 @@ public class Grammar {
                             }
 
                             if (!dotExists2) {
-                                result.put(B, "." + value.getValue());
+                                temp.put(B, "." + value.getValue());
                                 addedVal = true;
                             }
 
@@ -75,6 +138,8 @@ public class Grammar {
                     }
                 }
             }
+
+            result.putAll(temp);
         } while (addedVal);
 
         return result;
@@ -101,13 +166,13 @@ public class Grammar {
         //buildTable();
 
         gotoMap = new HashMap<>();
-        boolean[] stateVisited = new boolean[100];
+        boolean[] stateVisited = new boolean[10000];
         Arrays.fill(stateVisited, Boolean.FALSE);
 
         Multimap<String, String> startingProduction = HashMultimap.create();
         Multimap<String, String> s0;
         Multimap<String, Multimap<String, String>> result = HashMultimap.create();
-        startingProduction.put("K", "." + startingSymbol);
+        startingProduction.put(StartSymbCFG, "." + startingSymbol);
 
         List<String> termianlsAndNontermianls = new ArrayList<>(terminals);
         termianlsAndNontermianls.addAll(nonTerminals);
@@ -174,16 +239,21 @@ public class Grammar {
         for (Map.Entry<String, String> keyValue : state.entries()) {
 
             // Accept rule
-            if (keyValue.getKey().equals("K") &&
+            if (keyValue.getKey().equals(StartSymbCFG) &&
                     keyValue.getValue().equals(startingSymbol + ".") &&
                     state.size() == 1) {
+                System.out.println("Accept");
                 return "accept";
             }
 
             // Reduce
             char lastChar = keyValue.getValue().charAt(keyValue.getValue().length() - 1);
-            if (lastChar == '.' && state.size() == 1) {
-                return "reduce";
+            if (lastChar == '.') {
+                if (state.size() == 1) {
+                    return "reduce";
+                } else if (state.size() > 1) {
+                    return "Reduce error: size = " + state.size();
+                }
             }
 
             // Shift
@@ -201,15 +271,20 @@ public class Grammar {
 
     public static void buildTable() {
         Multimap<String, Multimap<String, String>> canSet = Grammar.createCanonicalSet();
-
         System.out.println();
-        System.out.println("Canonical set: ");
+        System.out.println("buildTable: Canonical set: ");
         System.out.println(canSet);
         System.out.println();
 
         List<String> termianlsAndNontermianls = new ArrayList<>(terminals);
         termianlsAndNontermianls.addAll(nonTerminals);
         termianlsAndNontermianls.add("action");
+
+//        for (String state : canSet.keySet()) {
+//            for (String elem : termianlsAndNontermianls) {
+//                table.put(new Pair<>(state, elem), "");
+//            }
+//        }
 
         for (String state : canSet.keySet()) {
             for (String elem : termianlsAndNontermianls) {
@@ -248,7 +323,8 @@ public class Grammar {
                     break;
                 }
                 default: {
-                    throw new RuntimeException("Rule conflict");
+                    System.out.println("Error for state : " + state + " | " + canSet.get(state));
+                    throw new RuntimeException(rule);
                 }
             }
         }
@@ -295,12 +371,6 @@ public class Grammar {
             System.out.print("]");
             System.out.println();
 
-            String headInputQueue;
-            if (inputQueue.size() != 1)
-                headInputQueue = inputQueue.poll();
-            else
-                headInputQueue = inputQueue.peek();
-
             String lastElWorkingSt = workingStack.lastElement();
 
             action = table.get(new Pair<>("s" + lastElWorkingSt, "action"));
@@ -309,8 +379,14 @@ public class Grammar {
             int reduceNo = -1;
             if (action.contains("reduce")) {
                 reduceNo = Integer.parseInt("" + action.substring(idxReduce));
-                action = action.substring(0, action.length() - 1);
+                action = action.substring(0, idxReduce);
             }
+
+            String headInputQueue;
+            if (inputQueue.size() != 1 && !action.equals("reduce"))
+                headInputQueue = inputQueue.poll();
+            else
+                headInputQueue = inputQueue.peek();
 
             switch (action) {
                 case "shift": {
@@ -368,7 +444,8 @@ public class Grammar {
                     break;
                 }
                 default: {
-                    action = "accept";
+                    System.out.println(action);
+                    //action = "accept";
                 }
             }
         } while (!action.equals("accept"));

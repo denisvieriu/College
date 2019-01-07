@@ -1,0 +1,7 @@
+N=S,A
+E=a,b,c
+ST=S
+Z->S
+S->aA
+A->bA
+A->c
