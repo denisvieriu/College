@@ -1,0 +1,7 @@
+CORRECT: 
+int main() {int a=3; int c=6; while(a==3) {a=c;} printf(a); int d; scanf(d); {int r=2; int p=2;}MY_STR; if (a==6) {return a;} else {return c;} return 2;}
+
+
+
+WRONG: (BAG GRAMMAR)
+int main() {int a=3; int c=6; while(a==3) {a=c;} printf(a); int 3; scanf(d); if (a==6) {return a;} else {return c;} return 2;}

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <stdio.h>
 
+
 // Must be a power of 2
 #define POLYNOM_SIZE 4
 
@@ -138,90 +139,59 @@ FreeBuffers(
 	cudaFree(B);
 	cudaFree(Prod);
 }
-
-
-__device__
-void
-_Karatsuba(
-	_In_ const vector<int> &A,
-	_In_ const vector<int> &B,
-	_Out_ vector<int> &C
-)
-{
-	if (A.size() == 1 && B.size() == 1)
-	{
-		C[0] = A[0] * B[0];
-		return;
-	}
-
-	size_t half = A.size() / 2;
-
-	vector<int> A0(A.begin(), A.begin() + half);    // A0
-	vector<int> A1(A.begin() + half, A.end());      // A1
-
-	vector<int> B0(B.begin(), B.begin() + half);    // B0
-	vector<int> B1(B.begin() + half, B.end());      // B1
-
-	vector<int> C1(A0.size() + B0.size() - 1);      // C1
-	vector<int> C2(A1.size() + B1.size() - 1);      // C2
-
-	_Karatsuba(A0, B0, C1);     // C1 = A0 * B0 - by recursive call
-	_Karatsuba(A1, B1, C2);     // C2 = A1 * B1 - by recursive call
-
-	for (size_t i = 0; i < C1.size(); ++i)
-	{
-		C[i] += C1[i];                        // C = C1;
-	}
-
-	for (size_t i = 0; i < A1.size(); ++i)
-	{
-		A0[i] += A1[i];                       // C3 = A0 + A1
-		B0[i] += B1[i];                       // C4 = B0 + B1
-	}
-	vector<int> C5(A0.size() + B0.size() - 1);
-	_Karatsuba(A0, B0, C5);     // C5 = C3 * C4 - by recursive call
-
-	for (size_t i = 0; i < C5.size(); ++i)          // At this point C = C1;
-	{
-		C[i + half] += C5[i] - C1[i] - C2[i];     // C += C6; => C = C1 + C6; where C6 = C5 - C1 - C2
-	}
-
-	for (size_t i = 0; i < C2.size(); ++i)          // At this point C = C1 + C6*X^(n/2)
-	{
-		C[i + 2 * half] += C2[i];                   // C = C1 + C6*X^(n/2) + C2*X^n
-	}
-}
-
-__global__
-void
-CudaKaratsuba(
-	_In_ uint64_t* A,
-	_In_ uint64_t* B,
-	_In_ uint64_t* Prod
-	)
-{
-	int threadId = blockDim.x * blockIdx.x + threadIdx.x;
-	int stride = gridDim.x * blockDim.x;
-
-	for (int i = threadId; i < FINAL_POLYNOM_SIZE; i += stride)
-	{
-		unsigned char* temp;
-		cudaMallocManaged(&temp, FINAL_POLYNOM_SIZE * sizeof(uint64_t));
-		cudaMemset(temp, 0, FINAL_POLYNOM_SIZE * sizeof(uint64_t));
-		temp[i] = A[i];
-
-
-	}
-}
-
-void
-CudaPolynomMultiplicationKaratsuba(
-	_In_ uint64_t* &A,
-	_In_ uint64_t* &B,
-	_In_ uint64_t* &Prod
-	)
-{
-}
+//
+//
+//__device__
+//void
+//_Karatsuba(
+//	_In_ const vector<int> &A,
+//	_In_ const vector<int> &B,
+//	_Out_ vector<int> &C
+//)
+//{
+//	if (A.size() == 1 && B.size() == 1)
+//	{
+//		C[0] = A[0] * B[0];
+//		return;
+//	}
+//
+//	size_t half = A.size() / 2;
+//
+//	vector<int> A0(A.begin(), A.begin() + half);    // A0
+//	vector<int> A1(A.begin() + half, A.end());      // A1
+//
+//	vector<int> B0(B.begin(), B.begin() + half);    // B0
+//	vector<int> B1(B.begin() + half, B.end());      // B1
+//
+//	vector<int> C1(A0.size() + B0.size() - 1);      // C1
+//	vector<int> C2(A1.size() + B1.size() - 1);      // C2
+//
+//	_Karatsuba(A0, B0, C1);     // C1 = A0 * B0 - by recursive call
+//	_Karatsuba(A1, B1, C2);     // C2 = A1 * B1 - by recursive call
+//
+//	for (size_t i = 0; i < C1.size(); ++i)
+//	{
+//		C[i] += C1[i];                        // C = C1;
+//	}
+//
+//	for (size_t i = 0; i < A1.size(); ++i)
+//	{
+//		A0[i] += A1[i];                       // C3 = A0 + A1
+//		B0[i] += B1[i];                       // C4 = B0 + B1
+//	}
+//	vector<int> C5(A0.size() + B0.size() - 1);
+//	_Karatsuba(A0, B0, C5);     // C5 = C3 * C4 - by recursive call
+//
+//	for (size_t i = 0; i < C5.size(); ++i)          // At this point C = C1;
+//	{
+//		C[i + half] += C5[i] - C1[i] - C2[i];     // C += C6; => C = C1 + C6; where C6 = C5 - C1 - C2
+//	}
+//
+//	for (size_t i = 0; i < C2.size(); ++i)          // At this point C = C1 + C6*X^(n/2)
+//	{
+//		C[i + 2 * half] += C2[i];                   // C = C1 + C6*X^(n/2) + C2*X^n
+//	}
+//}
 
 
 int main(int argc, char** argv)
@@ -233,9 +203,9 @@ int main(int argc, char** argv)
 
 	CudaPolynomMultiplication(a, b, result);
 
-	cudaMemset(result, 0, FINAL_POLYNOM_SIZE * sizeof(uint64_t));
+	//cudaMemset(result, 0, FINAL_POLYNOM_SIZE * sizeof(uint64_t));
 
-	CudaPolynomMultiplicationKaratsuba(a, b, result);
+	//CudaPolynomMultiplicationKaratsuba(a, b, result);
 
 	FreeBuffers(a, b, result);
 	return 0;

@@ -36,14 +36,14 @@
 a) Sintactical rules:
 		program  		::= 	type1 "main()" cmpdstmt
 		struct 			::= 	cmpdstmt IDENTIFIER ";"
-		type1	 		::= 	"int" | "bool" | "char" | "float" 
+		type1	 		::= 	"int" | "char" | "float" 
 		cmpdstmt 		::= 	"{" stmtlist "}"
 		stmtlist 		::= 	stmt | stmt stmtlist 
 		stmt	 		::= 	simplestmt | returnstmt | whilestmt | ifstmt | iostmt | struct
 		simplestmt 		::= 	declaration | assignment
 		declaration 	::= 	type1 IDENTIFIER ";"
 		assignment 		::= 	type1 IDENTIFIER "=" expression ";" | IDENTIFIER "=" expression ";"
-		expression 		::= 	IDENTIFIER | IDENTIFIER OPERATION 'const' | 'const' OPERATION 'const' | IDENTIFIER OPERATION IDENTIFIER
+		expression 		::= 	IDENTIFIER | 'const'
 		returnstmt 		::= 	"return" expression ";"
 		whilestmt 		::= 	"while" "(" condition ")" cmpdstmt
 		condition		::= 	expression RELATION expression

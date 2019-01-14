@@ -1,0 +1,2 @@
+ {boolean a; a=true;}
+ QnmMmUqMR

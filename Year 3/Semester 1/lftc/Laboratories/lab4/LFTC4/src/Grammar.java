@@ -80,7 +80,7 @@ public class Grammar {
 //        inputQueue.add("a");
 //        inputQueue.add("b");
 //        inputQueue.add("b");
-//        inputQueue.add("c");
+////        inputQueue.add("c");
 //        inputQueue.add("$");
 
         // QnmMmUqMR

@@ -1,17 +1,13 @@
 int main()
 {
 	int c = 6;
-	c = -3;
+	c = 3;
 	int d= c * 3;
 	struct{
 	int a = 3;
 	int y = 4;
 	}b;
 
-   'k'
-   'lk'
-   '%'
-   'o
 	printf(c);
 	return d;
 }
