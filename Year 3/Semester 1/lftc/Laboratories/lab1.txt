@@ -6,7 +6,7 @@
       c. Decimal digits (0-9);
   Lexic:
       a.Special symbols, representing:
-	 - operators + - * / < <= = >= %
+	 - operators + - * / < <= == = >=
 	 - separators [ ] { } ; space
 	 - reserved words:
 	 		char | const | int | printf | scanf | if | else | return | while | main | true | false | struct | float | bool
